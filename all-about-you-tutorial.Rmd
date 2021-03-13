@@ -1,0 +1,184 @@
+---
+title: "All about you!"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: "css/app-style.css"
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(tidyverse)
+library(googlesheets4)
+library(viridis)
+library(waffle)
+
+# remove authorization from googlesheet
+gs4_deauth()
+
+tutorial_options(
+  # code running in exercise times out after 30 seconds
+  exercise.timelimit = 30, 
+  )
+
+# hide non-exercise code chunks
+knitr::opts_chunk$set(echo = FALSE)
+
+# set ggplot options 
+
+theme_set(theme_bw())
+scale_colour_continuous <- scale_colour_viridis_c
+scale_colour_discrete   <- scale_colour_viridis_d
+scale_colour_binned     <- scale_colour_viridis_b
+
+# read in survey responses
+survey_data <- read_sheet("https://docs.google.com/spreadsheets/d/12TImpxFxdObvzjCVgQK6paPp0AxgN-1lSGg7CKfvCUM/edit?usp=sharing")
+
+# prep data 
+survey_data <- survey_data %>%
+  select(-Timestamp) %>%
+  rename(school_level = `Are you currently in high school or undergraduate?`,
+         school_format = `Are you primarily attending school in person or online?`, 
+         device_school = `About what percentage of your waking hours do you spend using an electronic device for something related to school? This can include attending classes, studying, homework, club meetings, etc.`, 
+         device_leisure = `About what percentage of your waking hours do you spend on an electronic device for leisure activities?`, 
+         social_media = `What type of social media do you use? Select all that apply.`)
+```
+
+## Introduction 
+
+We will use the **tidyverse** package for this tutorial. We load packages in R using the `library` function.
+
+```{r load-packages, exercise = TRUE}
+library(tidyverse)
+```
+
+### Look at the data 
+
+- `school_level`: High School or Undergraduate
+- `school_format`: In person or Online
+- `device_school`: Percentage of waking hours spent using electronic device for school 
+- `device_leisure`: Percentage of waking hours spent using electronic device for leisure
+- `social_media`: Social media platforms typically used 
+
+Let's use the `slice` function to view the first 10 rows of the data.
+
+```{r view-data, exercise = TRUE}
+survey_data %>%
+  slice(1:10)
+```
+
+## School
+
+### HS vs. Undergrad
+
+Looking at high school vs. undergraduate. 
+
+We're using the `ggplot2` package to make the plots. 
+
+```{r hs-undergrad, exercise  = TRUE}
+## ggplot code for a bar graph
+ggplot(data = survey_data, aes(x = school_level)) +
+  geom_bar() +
+  labs(title = "High school or Undergraduate")
+```
+
+### Classes in person or online?
+
+Make this a fill in the code question + change the color in quotations.
+
+```{r online-class, exercise  = TRUE}
+## ggplot code for a bar graph
+ggplot(data = survey_data, aes(x = school_format)) +
+  geom_bar(fill = "blue") +
+  labs(title = "High school or Undergraduate")
+```
+
+## How much of your time is spent using electronic devices?
+
+### Percentage of time on school activities vs leisure activities
+
+
+```{r time-on-device, exercise = TRUE}
+ggplot(data = survey_data, aes(x = device_school, y = device_leisure)) +
+  geom_point() + 
+  labs(x = "% for school", y = "% for leisure", 
+       title = "Percent electronic device usage for school vs. leisure")
+```
+
+### Does this differ for high school or undergraduate students?
+
+- Add color to the plot 
+
+```{r time-on-device-2, exercise = TRUE}
+ggplot(data = survey_data, aes(x = device_school, y = device_leisure, color = school_level)) +
+  geom_point() + 
+  labs(x = "% for school", y = "% for leisure", 
+       title = "Percent electronic device usage for school vs. leisure",
+       subtitle  = "by School Level")
+```
+
+
+### Does this differ for students taking classes in person or online?
+
+They will fill in the code themselves
+
+```{r time-on-device-3, exercise = TRUE}
+ggplot(data = survey_data, aes(x = device_school, y = device_leisure, color = school_format)) +
+  geom_point() + 
+  labs(x = "% for school", y = "% for leisure", 
+       title = "Percent electronic device usage for school vs. leisure",
+       subtitle  = "In person vs. online school") 
+```
+
+
+## Social media
+
+Let's see how many people use facebook. We'll use `str_detect` to do so. It will create a logical variable - true/false for 
+
+### make a facebook variable
+
+```{r facebook, exercise = TRUE}
+survey_data <- survey_data %>%
+  mutate(facebook  = str_detect(social_media, "Facebook"))
+```
+
+```{r facebook-slice, exercise = TRUE}
+survey_data %>%
+  slice(1:10)
+```
+
+
+### plot it
+
+
+```{r facebook-count, exercise = TRUE, exercise.setup = "facebook"}
+survey_data %>%
+  count(facebook)
+```
+
+Make a waffle plot. 
+
+```{r facebook-plot, exercise = TRUE, exercise.setup = "facebook"}
+library(waffle)
+survey_data %>%
+  count(facebook) %>%
+  ggplot(aes(fill = facebook, values = n)) +
+  geom_waffle(color = "white") +
+  theme_enhance_waffle() +
+  coord_equal() + 
+  theme(axis.ticks = element_blank())
+```
+
+
+### Let's try it for Instagram
+
+## Learn more about R!
+
+- last page on resources to learn more about R?
+
+
+
+

@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
+
+
+body {
+  font-family: Open Sans;
+	font-size: 16px;
+}
+
+p.caption {
+   font-size: 0.8em;
+}
+
+
+h2 {
+  font-family: Secular One;
+  color: #0577B1 ;
+
+}
+
+h3 {
+  font-family: Secular One;
+  color: #0577B1 ;
+}
+
+
+.topicsList .topic {
+  font-family: Open Sans;
+  font-weight: bold;
+  border-color: gainsboro;
+  background-color: white;
+  border-left: none;
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.btn-primary {
+    background-color: #424242;
+    color: white;
+    font-family: Secular One;
+    font-size: 16px;
+}
+
+.btn, .btn-success, .btn-xs, .btn-tutorial-run, .pull-right {
+  background-color: #00b3b3;
+  color: white;
+  font-family: Secular One;
+}
+
+.btn-default {
+    background-color: #424242;
+    color: white;
+    font-family: Secular One;
+    font-size: 16px;
+}
+
+.topicsList .topic.current {
+  border-color: white;
+  background-color:  #0577B1;
+  color: white;
+}
+
+.topicsList .topic:hover {
+  background-color: #00b3b3;
+  color: white;
+}
+
+code {
+  background-color: #ececec;
+  color: #424242 ;
+  font-family: Source Code Pro;
+}
+
+.a {
+  color: #00b3b3;
+}

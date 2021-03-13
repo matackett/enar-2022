@@ -1,0 +1,13 @@
+name: all-about-you-tutorial
+title: all-about-you-tutorial
+username:
+account: matackett
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3784123
+bundleId: 4338441
+url: https://matackett.shinyapps.io/all-about-you-tutorial/
+when: 1615606101.25441
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData
