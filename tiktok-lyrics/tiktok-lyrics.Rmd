@@ -1,0 +1,188 @@
+---
+title: "TikTok Lyrics"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: "css/font-size.css"
+runtime: shiny_prerendered
+---
+
+<!-- Add JavaScript code for making the exercise code larger -->
+<script language="JavaScript" src="js/exercise-font-size.js"></script>
+
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(tidytext)
+
+lyrics <- read_rds(here::here("tiktok-lyrics", "data/lyrics.rds"))
+lyrics_words <- read_rds(here::here("tiktok-lyrics", "data/lyric-words.rds"))
+```
+
+## Introduction
+
+### 
+
+```{r guess-1}
+question_text(
+  "Can you tell what the following visualisation (that is missing labels) might be based on?",
+  answer("Frequently used words in songs from 2020-2021 viral TikTok videos", correct = TRUE),
+  correct = "You'll find out shortly whether your guess is correct!",
+  incorrect = "You'll find out shortly whether your guess is correct!"
+  )
+```
+
+```{r out.width = "100%", fig.width = 10, fig.asp = 0.7}
+lyrics_words %>%
+  count(track_title, word, sort = TRUE) %>%
+  group_by(track_title) %>%
+  slice_head(n = 10) %>%
+  ungroup() %>%
+  ggplot(aes(y = reorder_within(word, n, track_title), x = n, fill = track_title)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(track_title), ncol = 3, scales = "free") +
+  scale_y_reordered() +
+  scale_fill_viridis_d(option = "E") +
+  theme_minimal(base_size = 14) +
+  labs(
+    x = NULL,
+    y = NULL
+  ) +
+  theme(
+    strip.text = element_blank(),
+    axis.text.x = element_blank()
+    )
+```
+
+###
+
+```{r guess-2}
+question_text(
+  "How about now? Can you tell what the following visualisation (that is missing labels) might be based on?",
+  answer("Frequently used words in songs from 2020-2021 viral TikTok videos", correct = TRUE),
+  correct = "You'll find out shortly whether your guess is correct!",
+  incorrect = "You'll find out shortly whether your guess is correct!"
+  )
+```
+
+```{r out.width = "100%", fig.width = 10, fig.asp = 0.7}
+lyrics_words %>%
+  count(track_title, word, sort = TRUE) %>%
+  group_by(track_title) %>%
+  slice_head(n = 10) %>%
+  ungroup() %>%
+  ggplot(aes(y = reorder_within(word, n, track_title), x = n, fill = track_title)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(track_title), ncol = 3, scales = "free") +
+  scale_y_reordered() +
+  scale_fill_viridis_d(option = "E") +
+  theme_minimal(base_size = 14) +
+  labs(
+    x = "Frequency",
+    y = "Word",
+    title = "Lyrics"
+  ) +
+  theme(
+    strip.text = element_blank(),
+    axis.text.x = element_blank()
+    )
+```
+
+###
+
+Let's reveal the answer!
+
+```{r out.width = "100%", fig.width = 10, fig.asp = 0.8}
+lyrics_words %>%
+  count(track_title, word, sort = TRUE) %>%
+  group_by(track_title) %>%
+  slice_head(n = 10) %>%
+  ungroup() %>%
+  ggplot(aes(y = reorder_within(word, n, track_title), x = n, fill = track_title)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(track_title), ncol = 3, scales = "free") +
+  scale_y_reordered() +
+  scale_fill_viridis_d(option = "E") +
+  theme_minimal(base_size = 14) +
+  labs(
+    x = "Frequency",
+    y = NULL,
+    title = "Frequently used words in songs from 2020-2021 viral TikTok videos",
+    subtitle = "After removing stop words and profanity",
+    caption = "Data: Genius - Song Lyrics & Knowledge"
+  )
+```
+
+
+
+```{r}
+knitr::knit_exit()
+```
+
+## Topic 1
+
+### Exercise 
+
+*Here's a simple exercise with an empty code chunk provided for entering the answer.*
+
+Write the R code required to add two plus two:
+
+```{r two-plus-two, exercise=TRUE}
+
+```
+
+### Exercise with Code
+
+*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
+
+Now write a function that adds any two numbers and then call it:
+
+```{r add-function, exercise=TRUE, exercise.lines = 5}
+add <- function() {
+  
+}
+```
+
+## Topic 2
+
+### Exercise with Hint
+
+*Here's an exercise where the chunk is pre-evaluated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
+
+Modify the following code to limit the number of rows printed to 5:
+
+```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
+mtcars
+```
+
+```{r print-limit-hint}
+head(mtcars)
+```
+
+### Quiz
+
+*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
+
+Some questions to verify that you understand the purposes of various base and recommended R packages:
+
+```{r quiz}
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  ),
+  question("Which of the R packages listed below are used to create plots?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("grid", correct = TRUE)
+  )
+)
+```
+
