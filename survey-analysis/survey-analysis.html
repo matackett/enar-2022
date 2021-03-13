@@ -123,7 +123,7 @@ $(document).ready(function () {
 <div id="section-packages" class="section level3">
 <h3>Packages</h3>
 <p>We’ll use the <strong>tidyverse</strong>, “an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.”</p>
-<p>Use the code below to load the <strong>tidyverse</strong>!</p>
+<p>Run the code to load the <strong>tidyverse</strong>.</p>
 <div class="tutorial-exercise" data-label="load-packages" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>library(tidyverse)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -137,12 +137,12 @@ $(document).ready(function () {
 <p>The data frame <code>responses</code> contains your responses to the <a href="https://forms.gle/Txz92ytAmngd5TZy6">survey</a> you took during this workshop.</p>
 <p>Here is the codebook for <code>responses</code>:</p>
 <ul>
+<li><code>region</code>: Northeast, South, Midwest, West</li>
 <li><code>school_level</code>: High School or Undergraduate</li>
 <li><code>school_format</code>: How you’re primarily attending school right now (In person or Online)</li>
 <li><code>device_school</code>: Percentage of waking hours spent using electronic devices for school</li>
 <li><code>device_leisure</code>: Percentage of waking hours spent using electronic devices for leisure activities</li>
 <li><code>social_media</code>: Which social media platforms you typically use</li>
-<li><code>region</code>: Northeast, South, Midwest, West</li>
 </ul>
 </div>
 <div id="section-lets-take-look-at-the-data" class="section level3">
@@ -410,6 +410,10 @@ responses <- responses %>%
          device_leisure = `About what percentage of your waking hours do you spend on an electronic device for leisure activities?`, 
          social_media = `What type of social media do you use? Select all that apply.`, 
          region = `What region do you live in?`)
+
+# reorder variables
+responses <- responses %>%
+  select(region, everything())
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -445,7 +449,9 @@ learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(t
 "         device_school = `About what percentage of your waking hours do you spend using an electronic device for something related to school? This can include attending classes, studying, homework, club meetings, etc.`, ", 
 "         device_leisure = `About what percentage of your waking hours do you spend on an electronic device for leisure activities?`, ", 
 "         social_media = `What type of social media do you use? Select all that apply.`, ", 
-"         region = `What region do you live in?`)"), overwrite = FALSE)
+"         region = `What region do you live in?`)", "", "# reorder variables", 
+"responses <- responses %>%", "  select(region, everything())"
+), overwrite = FALSE)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -467,7 +473,9 @@ learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(t
 "         device_school = `About what percentage of your waking hours do you spend using an electronic device for something related to school? This can include attending classes, studying, homework, club meetings, etc.`, ", 
 "         device_leisure = `About what percentage of your waking hours do you spend on an electronic device for leisure activities?`, ", 
 "         social_media = `What type of social media do you use? Select all that apply.`, ", 
-"         region = `What region do you live in?`)"), overwrite = FALSE)
+"         region = `What region do you live in?`)", "", "# reorder variables", 
+"responses <- responses %>%", "  select(region, everything())"
+), overwrite = FALSE)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -489,7 +497,9 @@ learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(t
 "         device_school = `About what percentage of your waking hours do you spend using an electronic device for something related to school? This can include attending classes, studying, homework, club meetings, etc.`, ", 
 "         device_leisure = `About what percentage of your waking hours do you spend on an electronic device for leisure activities?`, ", 
 "         social_media = `What type of social media do you use? Select all that apply.`, ", 
-"         region = `What region do you live in?`)"), overwrite = FALSE)
+"         region = `What region do you live in?`)", "", "# reorder variables", 
+"responses <- responses %>%", "  select(region, everything())"
+), overwrite = FALSE)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -511,7 +521,9 @@ learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(t
 "         device_school = `About what percentage of your waking hours do you spend using an electronic device for something related to school? This can include attending classes, studying, homework, club meetings, etc.`, ", 
 "         device_leisure = `About what percentage of your waking hours do you spend on an electronic device for leisure activities?`, ", 
 "         social_media = `What type of social media do you use? Select all that apply.`, ", 
-"         region = `What region do you live in?`)"), overwrite = FALSE)
+"         region = `What region do you live in?`)", "", "# reorder variables", 
+"responses <- responses %>%", "  select(region, everything())"
+), overwrite = FALSE)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">

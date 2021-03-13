@@ -56,6 +56,10 @@ responses <- responses %>%
          device_leisure = `About what percentage of your waking hours do you spend on an electronic device for leisure activities?`, 
          social_media = `What type of social media do you use? Select all that apply.`, 
          region = `What region do you live in?`)
+
+# reorder variables
+responses <- responses %>%
+  select(region, everything())
 ```
 
 ## Introduction 
@@ -66,7 +70,7 @@ Welcome! In this tutorial, we'll learn R functions that can help us wrangle, sum
 
 We'll use the **tidyverse**, "an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.” 
 
-Use the code below to load the **tidyverse**! 
+Run the code to load the **tidyverse**.
 
 ```{r load-packages, exercise = TRUE}
 library(tidyverse)
@@ -76,20 +80,20 @@ library(tidyverse)
 
 ### Your survey responses 
 
-The data frame `responses` contains your responses to the [survey](https://forms.gle/Txz92ytAmngd5TZy6) you took during this workshop. 
+The data set `responses` contains your responses to the [survey](https://forms.gle/Txz92ytAmngd5TZy6) you took during this workshop. 
 
 Here is the codebook for `responses`:
 
+- `region`: Northeast, South, Midwest, West
 - `school_level`: High School or Undergraduate
 - `school_format`: How you're primarily attending school right now (In person or Online)
 - `device_school`: Percentage of waking hours spent using electronic devices for school 
 - `device_leisure`: Percentage of waking hours spent using electronic devices for leisure activities
 - `social_media`: Which social media platforms you typically use
-- `region`: Northeast, South, Midwest, West
 
 ### Let's take look at the data
 
-We can use the `slice` function to view the first 5 rows of the data set. 
+Run the code to view the first five rows of the data set.
 
 ```{r view-data, exercise = TRUE}
 responses %>%
@@ -98,62 +102,86 @@ responses %>%
 
 ## School
 
-### School level
+### School format
 
-How many students are currently in high school versus college undergraduates? 
+**How many students are high school students? College undergraduates?** To answer this question, we can use the `count` function to count the number of respondents at each level of `school_level`. 
 
-Run the code below to make a bar plot of `school_level`. 
+```{r school-level-count, exercise = TRUE}
+responses %>%
+  count(school_level)
+```
 
-```{r hs-undergrad, exercise  = TRUE}
+Now let's make a bar plot to visualize these counts! 
+
+```{r school-level-bar, exercise  = TRUE}
 ggplot(data = responses, aes(x = school_level)) +
   geom_bar() 
 ```
 
-### Customize the plot
+### Customize the bar plot
 
-We can customize our plot by adding labels and changing the color of the bars. 
+There are many ways to customize plots made with `ggplot`. For now, let's change the color of the bars and add a title. 
 
-- To add labels, we'll use the `labs()` function. 
-- To change the color of the bars, we'll add `fill = "color-name"` in `geom_bar()`. For example, if we want to make the bars blue, we can add `fill = "blue"` in `geom_bar()`. 
+- To change the color of the bars, we'll include the  `fill = "[COLOR]"` inside `geom_bar()`. In the code below, you can see that we've changed the color of the bars to blue. 
+- We'll add a title by including `labs()`. 
 
-Fill in the code to update the bar plot of `school_level` by changing the color of the bars and adding a title.  If you need some inspiration, [click here](https://www.r-graph-gallery.com/42-colors-names.html) for a list of colors.
+Update the code by replacing `blue` with a color of your choice and adding a title. You can [click here](https://www.r-graph-gallery.com/42-colors-names.html) for a list of colors. 
 
-```{r hs-undergrad-2, exercise = TRUE}
-ggplot(data = ___, aes(x = ___)) +
-  geom_bar(fill = "___") + 
+```{r school-level-custom, exercise = TRUE}
+ggplot(data = responses, aes(x = school_level)) +
+  geom_bar(fill = "blue") + 
   labs(title = "___")
 ```
 
+### School format by level
 
-### School level vs. School format 
+**Are high school or undergraduates students more likely to be attending classes online?**
 
-Are high school or undergraduates students more likely to be attending classes online? 
+We can use the `group_by()` function to count number of students attending classes in person or online for each school level. 
 
-Let's update the bar plot filling in the bars based on the school format. To do so, we'll 
+```{r level-format-count, exercise = TRUE}
+responses %>% 
+  group_by(school_level) %>%
+  count(school_format)
+```
+
+### Visualize school format by level
+
+Let's visualize the relationship between `school_format` and `school_level`. We can update the original bar plot of `school_level` by filling in the color of the bars based on `school_format`. 
+
+Since we want to fill in the color of the bars based on a variable (instead of making them the same color as before), we will 
 
 - Include `fill = school_format` in the `aes`thetics
 - Include `position = "fill"` in `geom_bar()`
 
-Fill in the code to add a title and make the stacked bar plot.
+Fill in the code to make a bar plot of `school_level` with the bars filled in based on `school_format`. This is a **stacked barplot**.  
 
-```{r hs-undergrad-3, exercise = TRUE}
-ggplot(data = responses, aes(x = school_level, fill = school_format)) +
-  geom_bar(position = "fill") +
+```{r school-level-stacked, exercise = TRUE}
+ggplot(data = responses, aes(x = school_level, fill = ___)) +
+  geom_bar(position = "___") +
   labs(title = "___")
 ```
 
-
 ### Your Turn! 
 
-Is there a relationship between where students live and whether they are attending classes in person or online?
+**Is there a relationship between where students live and whether they are attending classes in person or online?**
 
-Make a bar plot of `region`, filling in the bars based on `school_format`. 
+Start by counting the number of students attending school in person and online by region. 
+
+```{r school-format-region, exercise = TRUE}
+## count of school_format by region
+
+```
+
+Then, make a stacked bar chart of  `region`, filling in the color based on `school_format`. 
 
 ```{r region-school, exercise = T}
 #bar plot of school format vs. region 
 
 ```
 
+
+**What are some similarities and differences you observe about the way students in each region are attending school?**
 
 ## Electronic devices
 
