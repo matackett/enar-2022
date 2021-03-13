@@ -1,5 +1,5 @@
 ---
-title: "All about you!"
+title: "Survey analysis (update title)"
 output: 
   learnr::tutorial:
     progressive: true
@@ -30,9 +30,19 @@ knitr::opts_chunk$set(echo = FALSE)
 # set ggplot options 
 
 theme_set(theme_bw())
-scale_colour_continuous <- scale_colour_viridis_c
-scale_colour_discrete   <- scale_colour_viridis_d
-scale_colour_binned     <- scale_colour_viridis_b
+
+viridis_qualitative_pal7 <- c("#440154FF", "#DCE319FF", "#443A83FF", 
+                              "#8FD744FF", "#31688EFF",  "#35B779FF", 
+                              "#21908CFF") #replace the first yellow color
+
+scale_fill_discrete <- function(...) {
+   scale_fill_manual(..., values = viridis_qualitative_pal7)
+} 
+
+scale_colour_discrete <- function(...) {
+  scale_colour_manual(..., values = viridis_qualitative_pal7)
+}
+
 
 # read in survey responses
 responses <- read_sheet("https://docs.google.com/spreadsheets/d/12TImpxFxdObvzjCVgQK6paPp0AxgN-1lSGg7CKfvCUM/edit?usp=sharing")
@@ -86,13 +96,11 @@ responses %>%
   slice(1:5)
 ```
 
-## Who's here?
+## School
 
 ### School level
 
 How many students are currently in high school versus college undergraduates? 
-
-Let's find out! [INSERT TEXT ABOUT GGPLOT! including something about aesthetics]
 
 Run the code below to make a bar plot of `school_level`. 
 
@@ -108,22 +116,41 @@ We can customize our plot by adding labels and changing the color of the bars.
 - To add labels, we'll use the `labs()` function. 
 - To change the color of the bars, we'll add `fill = "color-name"` in `geom_bar()`. For example, if we want to make the bars blue, we can add `fill = "blue"` in `geom_bar()`. 
 
-Fill in the code below to change the color of the bars and add a title to the plot. If you need some inspiration, [click here](https://www.r-graph-gallery.com/42-colors-names.html) for a list of colors.
+Fill in the code to update the bar plot of `school_level` by changing the color of the bars and adding a title.  If you need some inspiration, [click here](https://www.r-graph-gallery.com/42-colors-names.html) for a list of colors.
 
 ```{r hs-undergrad-2, exercise = TRUE}
-ggplot(data = responses, aes(x = school_level)) +
+ggplot(data = ___, aes(x = ___)) +
   geom_bar(fill = "___") + 
   labs(title = "___")
 ```
 
+
+### School level vs. School format 
+
+Are high school or undergraduates students more likely to be attending classes online? 
+
+Let's update the bar plot filling in the bars based on the school format. To do so, we'll 
+
+- Include `fill = school_format` in the `aes`thetics
+- Include `position = "fill"` in `geom_bar()`
+
+Fill in the code to add a title and make the stacked bar plot.
+
+```{r hs-undergrad-3, exercise = TRUE}
+ggplot(data = responses, aes(x = school_level, fill = school_format)) +
+  geom_bar(position = "fill") +
+  labs(title = "___")
+```
+
+
 ### Your Turn! 
 
-In which regions do the students in this workshop primarily live? 
+Is there a relationship between where students live and whether they are attending classes in person or online?
 
-Make a bar plot of `region`, and customize it by adding labels and changing the color of the bars. 
+Make a bar plot of `region`, filling in the bars based on `school_format`. 
 
-```{r region-plot, exercise = T}
-# make bar plot of region and customize it!
+```{r region-school, exercise = T}
+#bar plot of school format vs. region 
 
 ```
 
@@ -147,39 +174,49 @@ ggplot(data = responses, aes(x = device_school, y = device_leisure)) +
 
 ### `device_school` versus `device_leisure` by `school_level`
 
-Does the relationship between `device_school` and `device_leisure` differ for high school and undergraduate students?
+Does the relationship between `device_school` and `device_leisure` differ for high school and college students?
 
-To find out, we can add `color = group_var` to the `aes`thetic, where `group_var` is the variable we want to color by. For example, if we want to color by region, we can add `color = region` in `aes()`. 
+To find out, we can add `color = group_var` to the `aes`thetic, where `group_var` is the variable we want to color by.  
 
-Fill in the code to color the points on the scatterplot by `school_level`. Notice that we've also added a subtitle to the plot.
+Fill in the code to color the points on the scatterplot by `school_level` and add axis labels and a title.
 
 ```{r time-on-device-2, exercise = TRUE}
 ggplot(data = responses, aes(x = device_school, y = device_leisure, color = ___)) +
-  geom_point()
-```
-
-### Add labels
-
-Fill in the code below to make the scatterplot with axis labels and a title! 
-
-```{r time-on-device-3, exercise = TRUE}
-ggplot(data = responses, aes(x = ___, y = ___, color = school_level)) +
   geom_point() +
   labs(x = "___", 
       y = "___", 
       title = "___")
 ```
 
-### Your turn! 
+### Facet by school format
 
-Does the relationship between device usage for school versus leisure activities differ for students attending school in person versus online? 
+Do the observations we've made about electronic device use differ based on region?  
 
-To find out, make a scatterplot of `device_school` versus `device_lesiure` with the color based on `school_format`. 
+Let's add a `facet_wrap` to look at separate scatterplots based on school level. 
+
+```{r time-on-device-3, exercise = TRUE}
+ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_level)) +
+  geom_point() +
+  facet_wrap(vars(school_format)) + 
+  labs(x = "% time using device for school", 
+      y = "% time using device for leisure", 
+      title = "Time spent using device for school vs. leisure for HS and college students", 
+      subtitle = "Faceted by class format")
+```
+
+### Your turn!
+
+Does the relationship between device usage for school versus leisure activities differ for students attending school in person versus online? Is this relationship different for students who live in different regions? 
+
+Start by making a scatterplot of `device_school` versus `device_lesiure` with the color based on `school_format`. 
+Then update the plot by faceting by `region`. 
 
 ```{r time-on-device-4, exercise = TRUE}
-# add code for scatterplot!
+# add your code here!
 
 ```
+
+**What are some observations about the way students use electronic devices? How do these observations differ based on school level, school format, and region?**
 
 ## Facebook
 
@@ -217,15 +254,20 @@ responses %>%
 
 ### Visualize `facebook`
 
-Make a bar plot to visualize `facebook`. Customize your plot using 
+Let's make a bar plot to visualize `facebook`.
 
-- `fill = "blue"` in `geom_bar()` to change the color of the bars. 
-- `color = "green" in `geom_bar()` to change the line colors
-- `labs(title = "Your titl")` to add a title to the plot
+```{r facebook-4, exercise = TRUE, exercise.setup = "facebook-2"}
 
-```{r facebook-plot, exercise = TRUE, exercise.setup = "facebook-2"}
-# make a bar plot of Facebook
+```
 
+### Facebook and `device_leisure`
+
+Are facebook users more likely to spend more time using their device for leisure? To answer this question, we'll make a histogram of `device_leisure` faceted by `facebook. 
+
+```{r facebook-hist, exercise = TRUE, exercise.setup = "facebook-2"}
+ggplot(data = ___, aes(x = ___, color = facebook)) +
+  geom_histogram() +
+  facet_wrap(___)
 ```
 
 ## Your turn! 
@@ -258,8 +300,19 @@ ___ %>%
 
 ### Visualize it! 
 
-```{r social-media-3, exercise = TRUE, exercise.setup = "facebook-2"}
+Make a bar plot of your social media variable and customize the plot! 
+
+```{r social-media-3, exercise = TRUE, exercise.setup = "social-media-2"}
 # make a bar plot of your social media variable
+
+```
+
+### Relationship between variables
+
+Now make a plot of explore the relationship between your social media variable and any of other variables we've used in this analysis!
+
+```{r social-media-4,exercise = TRUE, exercise.setup = "social-media-2" }
+## Make a plot to visualize the relationship
 
 ```
 
