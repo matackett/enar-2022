@@ -35,10 +35,10 @@ scale_colour_discrete   <- scale_colour_viridis_d
 scale_colour_binned     <- scale_colour_viridis_b
 
 # read in survey responses
-survey_data <- read_sheet("https://docs.google.com/spreadsheets/d/12TImpxFxdObvzjCVgQK6paPp0AxgN-1lSGg7CKfvCUM/edit?usp=sharing")
+responses <- read_sheet("https://docs.google.com/spreadsheets/d/12TImpxFxdObvzjCVgQK6paPp0AxgN-1lSGg7CKfvCUM/edit?usp=sharing")
 
 # prep data 
-survey_data <- survey_data %>%
+responses <- responses %>%
   select(-Timestamp) %>%
   rename(school_level = `Are you currently in high school or undergraduate?`,
          school_format = `Are you primarily attending school in person or online?`, 
@@ -49,60 +49,94 @@ survey_data <- survey_data %>%
 
 ## Introduction 
 
-We will use the **tidyverse** package for this tutorial. We load packages in R using the `library` function.
+Welcome! In this tutorial, we'll learn R functions that can help us wrangle, summarize, and visualize your survey responses and learn a little more about you! 
+
+### Packages
+
+We'll use the **tidyverse**, "an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.” 
+
+Use the code below to load the **tidyverse**! 
 
 ```{r load-packages, exercise = TRUE}
 library(tidyverse)
 ```
 
-### Look at the data 
+## Data
 
-- `school_level`: High School or Undergraduate
-- `school_format`: In person or Online
-- `device_school`: Percentage of waking hours spent using electronic device for school 
-- `device_leisure`: Percentage of waking hours spent using electronic device for leisure
-- `social_media`: Social media platforms typically used 
+### Your survey responses 
 
-Let's use the `slice` function to view the first 10 rows of the data.
+The data frame `responses` contains your responses to the [survey](https://forms.gle/Txz92ytAmngd5TZy6) you took during this workshop. 
+
+Here is the codebook for `responses`:
+
+- `school_level`: Current school level (High School or Undergraduate)
+- `school_format`: How you're primarily attending school right now (In person or Online)
+- `device_school`: Percentage of waking hours spent using electronic devices for school 
+- `device_leisure`: Percentage of waking hours spent using electronic devices for leisure activities
+- `social_media`: Which social media platforms you typically use
+
+### Let's take look at the data
+
+We can use the `slice` function to view the first 5 rows of the data set. 
 
 ```{r view-data, exercise = TRUE}
-survey_data %>%
-  slice(1:10)
+responses %>%
+  slice(1:5)
 ```
 
 ## School
 
-### HS vs. Undergrad
+### School level
 
-Looking at high school vs. undergraduate. 
+How many students are currently in high school versus college undergraduates? 
 
-We're using the `ggplot2` package to make the plots. 
+Let's find out! [INSERT TEXT ABOUT GGPLOT!]
+
+Run the code below to make a bar plot of `school_level`. 
 
 ```{r hs-undergrad, exercise  = TRUE}
-## ggplot code for a bar graph
-ggplot(data = survey_data, aes(x = school_level)) +
-  geom_bar() +
-  labs(title = "High school or Undergraduate")
+ggplot(data = responses, aes(x = school_level)) +
+  geom_bar() 
 ```
 
-### Classes in person or online?
+### Customize the plot
 
-Make this a fill in the code question + change the color in quotations.
+We can customize our plot by adding labels and changing the color of the bars. 
 
-```{r online-class, exercise  = TRUE}
-## ggplot code for a bar graph
-ggplot(data = survey_data, aes(x = school_format)) +
-  geom_bar(fill = "blue") +
-  labs(title = "High school or Undergraduate")
+- To add labels, we'll use the `labs()` function. 
+- To change the color of the bars, we'll add `fill = "color-name"` in `geom_bar()`. For example, if we want to make the bars blue, we can add `fill = "blue"` in `geom_bar()`. 
+
+Fill in the code below to change the color of the bars and add a title to the plot. If you need some inspiration, [click here](https://www.r-graph-gallery.com/42-colors-names.html) for a list of colors.
+
+```{r hs-undergrad-2, exercise = TRUE}
+ggplot(data = responses, aes(x = school_level)) +
+  geom_bar(fill = "___") + 
+  labs(x = "School Level", 
+       title = "___")
 ```
 
-## How much of your time is spent using electronic devices?
+### Your Turn! 
+
+Are students in this workshop primarily attending school in person or online? 
+
+Make a bar plot of `school_format`, and customize it by adding labels and changing the color of the bars. 
+
+```{r hs-undergrad-3, exercise = T}
+# make bar plot of school_format and customize it!
+
+```
+
+
+- Make a stacked or side-by-side bar chart?
+
+
+## Electronic devices
 
 ### Percentage of time on school activities vs leisure activities
 
 
 ```{r time-on-device, exercise = TRUE}
-ggplot(data = survey_data, aes(x = device_school, y = device_leisure)) +
+ggplot(data = responses, aes(x = device_school, y = device_leisure)) +
   geom_point() + 
   labs(x = "% for school", y = "% for leisure", 
        title = "Percent electronic device usage for school vs. leisure")
@@ -113,7 +147,7 @@ ggplot(data = survey_data, aes(x = device_school, y = device_leisure)) +
 - Add color to the plot 
 
 ```{r time-on-device-2, exercise = TRUE}
-ggplot(data = survey_data, aes(x = device_school, y = device_leisure, color = school_level)) +
+ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_level)) +
   geom_point() + 
   labs(x = "% for school", y = "% for leisure", 
        title = "Percent electronic device usage for school vs. leisure",
@@ -126,7 +160,7 @@ ggplot(data = survey_data, aes(x = device_school, y = device_leisure, color = sc
 They will fill in the code themselves
 
 ```{r time-on-device-3, exercise = TRUE}
-ggplot(data = survey_data, aes(x = device_school, y = device_leisure, color = school_format)) +
+ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_format)) +
   geom_point() + 
   labs(x = "% for school", y = "% for leisure", 
        title = "Percent electronic device usage for school vs. leisure",
@@ -141,12 +175,12 @@ Let's see how many people use facebook. We'll use `str_detect` to do so. It will
 ### make a facebook variable
 
 ```{r facebook, exercise = TRUE}
-survey_data <- survey_data %>%
+responses <- responses %>%
   mutate(facebook  = str_detect(social_media, "Facebook"))
 ```
 
 ```{r facebook-slice, exercise = TRUE}
-survey_data %>%
+responses %>%
   slice(1:10)
 ```
 
@@ -155,7 +189,7 @@ survey_data %>%
 
 
 ```{r facebook-count, exercise = TRUE, exercise.setup = "facebook"}
-survey_data %>%
+responses %>%
   count(facebook)
 ```
 
@@ -163,7 +197,7 @@ Make a waffle plot.
 
 ```{r facebook-plot, exercise = TRUE, exercise.setup = "facebook"}
 library(waffle)
-survey_data %>%
+responses %>%
   count(facebook) %>%
   ggplot(aes(fill = facebook, values = n)) +
   geom_waffle(color = "white") +

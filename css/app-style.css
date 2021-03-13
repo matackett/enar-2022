@@ -43,7 +43,7 @@ h3 {
 }
 
 .btn, .btn-success, .btn-xs, .btn-tutorial-run, .pull-right {
-  background-color: #00b3b3;
+  background-color: #993399;
   color: white;
   font-family: Secular One;
 }
@@ -61,10 +61,11 @@ h3 {
   color: white;
 }
 
-.topicsList .topic:hover {
+/*.topicsList .topic:hover { 
   background-color: #00b3b3;
   color: white;
 }
+*/
 
 code {
   background-color: #ececec;
@@ -73,5 +74,5 @@ code {
 }
 
 .a {
-  color: #00b3b3;
+  color: #993399;
 }
