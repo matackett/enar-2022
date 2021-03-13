@@ -44,7 +44,8 @@ responses <- responses %>%
          school_format = `Are you primarily attending school in person or online?`, 
          device_school = `About what percentage of your waking hours do you spend using an electronic device for something related to school? This can include attending classes, studying, homework, club meetings, etc.`, 
          device_leisure = `About what percentage of your waking hours do you spend on an electronic device for leisure activities?`, 
-         social_media = `What type of social media do you use? Select all that apply.`)
+         social_media = `What type of social media do you use? Select all that apply.`, 
+         region = `What region do you live in?`)
 ```
 
 ## Introduction 
@@ -69,11 +70,12 @@ The data frame `responses` contains your responses to the [survey](https://forms
 
 Here is the codebook for `responses`:
 
-- `school_level`: Current school level (High School or Undergraduate)
+- `school_level`: High School or Undergraduate
 - `school_format`: How you're primarily attending school right now (In person or Online)
 - `device_school`: Percentage of waking hours spent using electronic devices for school 
 - `device_leisure`: Percentage of waking hours spent using electronic devices for leisure activities
 - `social_media`: Which social media platforms you typically use
+- `region`: Northeast, South, Midwest, West
 
 ### Let's take look at the data
 
@@ -84,13 +86,13 @@ responses %>%
   slice(1:5)
 ```
 
-## School
+## Who's here?
 
 ### School level
 
 How many students are currently in high school versus college undergraduates? 
 
-Let's find out! [INSERT TEXT ABOUT GGPLOT!]
+Let's find out! [INSERT TEXT ABOUT GGPLOT! including something about aesthetics]
 
 Run the code below to make a bar plot of `school_level`. 
 
@@ -111,108 +113,163 @@ Fill in the code below to change the color of the bars and add a title to the pl
 ```{r hs-undergrad-2, exercise = TRUE}
 ggplot(data = responses, aes(x = school_level)) +
   geom_bar(fill = "___") + 
-  labs(x = "School Level", 
-       title = "___")
+  labs(title = "___")
 ```
 
 ### Your Turn! 
 
-Are students in this workshop primarily attending school in person or online? 
+In which regions do the students in this workshop primarily live? 
 
-Make a bar plot of `school_format`, and customize it by adding labels and changing the color of the bars. 
+Make a bar plot of `region`, and customize it by adding labels and changing the color of the bars. 
 
-```{r hs-undergrad-3, exercise = T}
-# make bar plot of school_format and customize it!
+```{r region-plot, exercise = T}
+# make bar plot of region and customize it!
 
 ```
-
-
-- Make a stacked or side-by-side bar chart?
 
 
 ## Electronic devices
 
-### Percentage of time on school activities vs leisure activities
+What's the relationship between the percentage of time you use an electronic device for school versus for leisure activities in your free time? 
 
+Let's make a scatterplot to find out!
+
+### `device_school` versus `device_leisure`
+
+We can use `geom_point()` to make scatterplots in `ggplot`. 
+
+Run the code below to make a scatterplot of time you use electronic devices for school versus leisure. 
 
 ```{r time-on-device, exercise = TRUE}
 ggplot(data = responses, aes(x = device_school, y = device_leisure)) +
-  geom_point() + 
-  labs(x = "% for school", y = "% for leisure", 
-       title = "Percent electronic device usage for school vs. leisure")
+  geom_point()
 ```
 
-### Does this differ for high school or undergraduate students?
+### `device_school` versus `device_leisure` by `school_level`
 
-- Add color to the plot 
+Does the relationship between `device_school` and `device_leisure` differ for high school and undergraduate students?
+
+To find out, we can add `color = group_var` to the `aes`thetic, where `group_var` is the variable we want to color by. For example, if we want to color by region, we can add `color = region` in `aes()`. 
+
+Fill in the code to color the points on the scatterplot by `school_level`. Notice that we've also added a subtitle to the plot.
 
 ```{r time-on-device-2, exercise = TRUE}
-ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_level)) +
-  geom_point() + 
-  labs(x = "% for school", y = "% for leisure", 
-       title = "Percent electronic device usage for school vs. leisure",
-       subtitle  = "by School Level")
+ggplot(data = responses, aes(x = device_school, y = device_leisure, color = ___)) +
+  geom_point()
 ```
 
+### Add labels
 
-### Does this differ for students taking classes in person or online?
-
-They will fill in the code themselves
+Fill in the code below to make the scatterplot with axis labels and a title! 
 
 ```{r time-on-device-3, exercise = TRUE}
-ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_format)) +
-  geom_point() + 
-  labs(x = "% for school", y = "% for leisure", 
-       title = "Percent electronic device usage for school vs. leisure",
-       subtitle  = "In person vs. online school") 
+ggplot(data = responses, aes(x = ___, y = ___, color = school_level)) +
+  geom_point() +
+  labs(x = "___", 
+      y = "___", 
+      title = "___")
 ```
 
+### Your turn! 
 
-## Social media
+Does the relationship between device usage for school versus leisure activities differ for students attending school in person versus online? 
 
-Let's see how many people use facebook. We'll use `str_detect` to do so. It will create a logical variable - true/false for 
+To find out, make a scatterplot of `device_school` versus `device_lesiure` with the color based on `school_format`. 
 
-### make a facebook variable
+```{r time-on-device-4, exercise = TRUE}
+# add code for scatterplot!
 
-```{r facebook, exercise = TRUE}
+```
+
+## Facebook
+
+Do a majority of students here use Facebook? 
+
+We can use the `social_media` variable to answer help answer this question. Let's take a look at this variable using the `select` function.
+
+```{r facebook-1, exercise = TRUE}
+responses %>%
+  select(social_media)
+```
+
+### Use `str_detect` to identify Facebook users
+
+Respondents could select multiple social media platform, so we need a way to figure out whether Facebook is included in their answer. 
+
+To do so, we'll use the `str_detect` and `mutate` functions  to create a new variable identifying whether the respondent uses Facebook. 
+
+- `str_detect`: returns the value **TRUE** if "Facebook" is included in `social_media` and **FALSE** otherwise.
+- `mutate`: Add the new variable to the data set
+
+Run the code below to create the variable `facebook`. 
+
+```{r facebook-2, exercise = TRUE}
 responses <- responses %>%
   mutate(facebook  = str_detect(social_media, "Facebook"))
 ```
 
-```{r facebook-slice, exercise = TRUE}
+Now let's take a look at the data. 
+
+```{r facebook-3, exercise = TRUE, exercise.setup = "facebook-2"}
 responses %>%
-  slice(1:10)
+  select(social_media, facebook)
 ```
 
+### Visualize `facebook`
 
-### plot it
+Make a bar plot to visualize `facebook`. Customize your plot using 
 
+- `fill = "blue"` in `geom_bar()` to change the color of the bars. 
+- `color = "green" in `geom_bar()` to change the line colors
+- `labs(title = "Your titl")` to add a title to the plot
 
-```{r facebook-count, exercise = TRUE, exercise.setup = "facebook"}
-responses %>%
-  count(facebook)
+```{r facebook-plot, exercise = TRUE, exercise.setup = "facebook-2"}
+# make a bar plot of Facebook
+
 ```
 
-Make a waffle plot. 
+## Your turn! 
 
-```{r facebook-plot, exercise = TRUE, exercise.setup = "facebook"}
-library(waffle)
-responses %>%
-  count(facebook) %>%
-  ggplot(aes(fill = facebook, values = n)) +
-  geom_waffle(color = "white") +
-  theme_enhance_waffle() +
-  coord_equal() + 
-  theme(axis.ticks = element_blank())
+Choose another social media platform in from the survey and visualize the responses!
+
+You can choose from 
+
+- "Instagram" 
+- "Twitter"
+- "Snapchat"
+- "Other"
+- "None/ I don't use social media"
+
+### Make a new variable
+
+Fill in the code below to use the `str_detect` and `mutate` functions to create a new variable. 
+
+```{r social-media, exercise = TRUE, exercise.setup = "facebook-2"}
+responses <- ___ %>%
+  ___(str_detect(___, "___"))
 ```
 
+Take a look at your new variable
 
-### Let's try it for Instagram
+```{r social-media-2, exercise = TRUE, exercise.setup = "facebook-2"}
+___ %>%
+  select(social_media, ___)
+```
 
-## Learn more about R!
+### Visualize it! 
 
-- last page on resources to learn more about R?
+```{r social-media-3, exercise = TRUE, exercise.setup = "facebook-2"}
+# make a bar plot of your social media variable
 
+```
+
+## Learn more!
+
+Below are a few resources to keep learning more about R and the tidyverse!
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [RStudio Primers](https://rstudio.cloud/learn/primers)
+- [tidyverse.org](https://www.tidyverse.org/)
 
 
 
