@@ -5,7 +5,7 @@
 
 body {
   font-family: Open Sans !important;
-	font-size: 16px !important;
+  font-size: 16px !important;
 }
 
 p.caption {
@@ -14,13 +14,12 @@ p.caption {
 
 h2 {
   font-family: Secular One !important;
-  color: #0577B1 !important;
-
+  color: #414d6b !important;
 }
 
 h3 {
   font-family: Secular One !important;
-  color: #0577B1 !important;
+  color: #414d6b !important;
 }
 
 
@@ -35,43 +34,54 @@ h3 {
 }
 
 .btn-primary {
-    background-color: #424242 !important;
-    color: white !important;
-    font-family: Secular One !important;
-    font-size: 16px !important;
+  background-color: #7d7d7d !important;
+  color: white !important;
+  font-family: Secular One !important;
+  font-size: 16px !important;
 }
 
 .btn, .btn-success, .btn-xs, .btn-tutorial-run, .pull-right {
-  background-color: #993399 !important;
+  background-color: #BCAF6F !important;
   color: white !important;
   font-family: Secular One !important;
 }
 
 .btn-default {
-    background-color: #424242 !important;
-    color: white !important;
-    font-family: Secular One !important;
-    font-size: 16px !important;
+  background-color: #7d7d7d !important;
+  color: white !important;
+  font-family: Secular One !important;
+  font-size: 16px !important;
 }
 
 .topicsList .topic.current {
   border-color: white !important;
-  background-color: #0577B1 !important;
+  background-color: #414d6b !important;
   color: white !important;
 }
 
-/*.topicsList .topic:hover {
-  background-color: #00b3b3;
-  color: white;
+a {
+  color: #414d6b !important;
 }
-*/
 
 code {
-  background-color: #ececec !important;
-  color: #808080 !important;
   font-family: Source Code Pro !important;
+  font-size: 16px !important;
 }
 
-a {
-  color: #993399 !important;
+img {
+  border: 1pt solid #E0E0E0 !important;
+}
+
+.your-turn {
+  padding: 1em 1em 0em 1em;
+  border-left: 1pt solid #E0E0E0;
+  border-right: 1pt solid #E0E0E0;
+  border-top: 1pt solid #E0E0E0;
+}
+.your-turn:before {
+  content: "Your turn: ";
+  clear: right;
+  display: block;
+  font-family: Secular One;
+  color: #BCAF6F;
 }

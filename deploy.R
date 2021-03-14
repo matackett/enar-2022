@@ -6,7 +6,15 @@ library(rsconnect)
 
 deployApp(
   appDir = "tiktok-lyrics",
-  appTitle = "TikTok Lyrics",
+  appTitle = "TikTok lyrics",
+  account = "minecr",
+  forceUpdate = TRUE,
+  launch.browser = TRUE
+)
+
+deployApp(
+  appDir = "survey-analysis",
+  appTitle = "Survey analysis",
   account = "minecr",
   forceUpdate = TRUE,
   launch.browser = TRUE
