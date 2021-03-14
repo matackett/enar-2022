@@ -15,13 +15,14 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-knitr::opts_chunk$set(echo = FALSE)
-
 library(tidyverse)
 library(tidytext)
+library(knitr)
 
-lyrics <- read_rds(here::here("tiktok-lyrics", "data/lyrics.rds"))
-lyric_words <- read_rds(here::here("tiktok-lyrics", "data/lyric-words.rds"))
+knitr::opts_chunk$set(echo = FALSE)
+
+lyrics <- read_rds("data/lyrics.rds")
+lyric_words <- read_rds("data/lyric-words.rds")
 ```
 
 ## Guessing game
