@@ -15,7 +15,6 @@ p.caption {
 h2 {
   font-family: Secular One !important;
   color: #414d6b !important;
-
 }
 
 h3 {
@@ -64,6 +63,15 @@ a {
   color: #414d6b !important;
 }
 
+code {
+  font-family: Source Code Pro !important;
+  font-size: 16px !important;
+}
+
+img {
+  border: 1pt solid #E0E0E0 !important;
+}
+
 .your-turn {
   padding: 1em 1em 0em 1em;
   border-left: 1pt solid #E0E0E0;
@@ -74,6 +82,6 @@ a {
   content: "Your turn: ";
   clear: right;
   display: block;
-  font-weight: bold !important;
+  font-family: Secular One;
   color: #BCAF6F;
 }

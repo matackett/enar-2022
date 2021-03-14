@@ -168,7 +168,8 @@ question(
 
 ```{r}
 lyric_words %>%
-  filter(song == "Wellerman")
+  filter(song == "Wellerman") %>%
+  print(n = 20)
 ```
 
 ### Data frame
@@ -329,7 +330,7 @@ lyric_words %>%
 **Hint:** The variables in the dataset are `song`, `word`, `line`, and `artist`.
 </div>
 
-### 
+### Still not good enough...
 
 - The following output is an improvement on what we had before, but it's still pretty tough to see the most common words in each song.
 
@@ -717,4 +718,13 @@ lyric_words %>%
     caption = "Data: Genius - Song Lyrics & Knowledge"
   ) +
   theme_minimal()
+```
+
+### Time allowing...
+
+Is there anyting else you'd like to explore in the data before we move on?
+
+```{r viz-11, exercise = TRUE}
+lyric_words %>%
+  ___
 ```
