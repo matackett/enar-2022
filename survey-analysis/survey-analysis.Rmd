@@ -1,5 +1,5 @@
 ---
-title: "An analysis of social media & electronic device use"
+title: "All about you!"
 output: 
   learnr::tutorial:
     progressive: true
