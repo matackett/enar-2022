@@ -1,5 +1,5 @@
 ---
-title: "Survey analysis (update title)"
+title: "An analysis of social media & electronic device use"
 output: 
   learnr::tutorial:
     progressive: true
@@ -7,6 +7,11 @@ output:
     css: "css/app-style.css"
 runtime: shiny_prerendered
 ---
+
+
+<!-- Add JavaScript code for making the exercise code larger -->
+<script language="JavaScript" src="js/exercise-font-size.js"></script>
+
 
 ```{r setup, include=FALSE}
 library(learnr)
@@ -50,11 +55,11 @@ responses <- read_sheet("https://docs.google.com/spreadsheets/d/12TImpxFxdObvzjC
 # prep data 
 responses <- responses %>%
   select(-Timestamp) %>%
-  rename(school_level = `Are you currently in high school or undergraduate?`,
-         school_format = `Are you primarily attending school in person or online?`, 
-         device_school = `About what percentage of your waking hours do you spend using an electronic device for something related to school? This can include attending classes, studying, homework, club meetings, etc.`, 
-         device_leisure = `About what percentage of your waking hours do you spend on an electronic device for leisure activities?`, 
-         social_media = `What type of social media do you use? Select all that apply.`, 
+  rename(school_level = `Are you a high school or undergraduate student?`,
+         school_format = `Are you primarily attending classes in person or online?`, 
+         device_school = `About what percent of waking hours do you spend using an electronic device for something related to school, such as attending classes, studying, homework, etc.?`, 
+         device_leisure = `About what percent of waking hours do you spend on an electronic device for leisure activities, such as social media, watching TV, chatting with friends, etc.?`, 
+         social_media = `What social media platforms do you use? Select all that apply.`, 
          region = `What region do you live in?`)
 
 # reorder variables
@@ -87,9 +92,9 @@ Here is the codebook for `responses`:
 - `region`: Northeast, South, Midwest, West
 - `school_level`: High School or Undergraduate
 - `school_format`: How you're primarily attending school right now (In person or Online)
-- `device_school`: Percentage of waking hours spent using electronic devices for school 
-- `device_leisure`: Percentage of waking hours spent using electronic devices for leisure activities
-- `social_media`: Which social media platforms you typically use
+- `device_school`: percent of waking hours spent using electronic devices for school 
+- `device_leisure`: percent of waking hours spent using electronic devices for leisure activities
+- `social_media`: Which social media platforms you typically use (Facebook, Twitter, Instagram, Snapchat, TikTok, Other, None/ I don't use social media)
 
 ### Let's take look at the data
 
@@ -104,7 +109,7 @@ responses %>%
 
 ### School format
 
-**How many students are high school students? College undergraduates?** To answer this question, we can use the `count` function to count the number of respondents at each level of `school_level`. 
+**How many students are high school students? College undergraduates?** To answer this question, we can use the `count` function to count the number of students at each level of `school_level`. 
 
 ```{r school-level-count, exercise = TRUE}
 responses %>%
@@ -180,16 +185,15 @@ Then, make a stacked bar chart of  `region`, filling in the color based on `scho
 
 ```
 
-
 **What are some similarities and differences you observe about the way students in each region are attending school?**
 
 ## Electronic devices
 
-What's the relationship between the percentage of time you use an electronic device for school versus for leisure activities in your free time? 
+What's the relationship between the percent of time students use an electronic device for school versus for leisure activities?
 
 Let's make a scatterplot to find out!
 
-### `device_school` versus `device_leisure`
+### Electronic device use
 
 We can use `geom_point()` to make scatterplots in `ggplot`. 
 
@@ -200,147 +204,132 @@ ggplot(data = responses, aes(x = device_school, y = device_leisure)) +
   geom_point()
 ```
 
-### `device_school` versus `device_leisure` by `school_level`
 
-Does the relationship between `device_school` and `device_leisure` differ for high school and college students?
+### Electronic device use by school format
 
-To find out, we can add `color = group_var` to the `aes`thetic, where `group_var` is the variable we want to color by.  
+Now let's see if the relationship between `device_school` and `device_leisure` differs for students attending classes in person versus those attending classes online.
 
-Fill in the code to color the points on the scatterplot by `school_level` and add axis labels and a title.
+We'll add color to our scatterplot to look at the difference by school format.
 
-```{r time-on-device-2, exercise = TRUE}
-ggplot(data = responses, aes(x = device_school, y = device_leisure, color = ___)) +
-  geom_point() +
-  labs(x = "___", 
-      y = "___", 
-      title = "___")
+```{r device-by-format, exercise = TRUE}
+ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_format)) +
+  geom_point()
 ```
 
-### Facet by school format
+### Visualize general trend
 
-Do the observations we've made about electronic device use differ based on region?  
+We can also use `geom_smooth()` to get a better view of the general relationship between the variables.  
 
-Let's add a `facet_wrap` to look at separate scatterplots based on school level. 
-
-```{r time-on-device-3, exercise = TRUE}
-ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_level)) +
+```{r device-by-format-smooth, exercise = TRUE}
+ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_format)) +
   geom_point() +
-  facet_wrap(vars(school_format)) + 
+  geom_smooth()
+```
+
+### Let's add school level
+
+Do the observations we've made about electronic device use differ for high school and undergraduate students?
+
+Let's add a `facet_wrap` to look at separate scatterplots based on school level.  We'll also add axis labels and a title to the plot.
+
+```{r device-by-format-facet, exercise = TRUE}
+ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_format)) +
+  geom_point() +
+  facet_wrap(vars(school_level)) + 
   labs(x = "% time using device for school", 
       y = "% time using device for leisure", 
-      title = "Time spent using device for school vs. leisure for HS and college students", 
-      subtitle = "Faceted by class format")
+      title = "Electronic device use by class format", 
+      subtitle = "For high school and undergraduate students")
 ```
 
 ### Your turn!
 
-Does the relationship between device usage for school versus leisure activities differ for students attending school in person versus online? Is this relationship different for students who live in different regions? 
+Explore the relationship between `device_school` and `device_leisure` by region and school format. Make a scatterplot using color and faceting to visualize the relationship between these variables. 
 
-Start by making a scatterplot of `device_school` versus `device_lesiure` with the color based on `school_format`. 
-Then update the plot by faceting by `region`. 
-
-```{r time-on-device-4, exercise = TRUE}
+```{r device-by-region, exercise = TRUE}
 # add your code here!
 
 ```
 
-**What are some observations about the way students use electronic devices? How do these observations differ based on school level, school format, and region?**
+**Based on your plot, what do you observe about the relationship between these variables?**
 
-## Facebook
+## Social Media
 
-Do a majority of students here use Facebook? 
+### View `social_media`
 
-We can use the `social_media` variable to answer help answer this question. Let's take a look at this variable using the `select` function.
+Now let's analyze the social media data. Let's start by using the `select` function to take a look at this variable.
 
-```{r facebook-1, exercise = TRUE}
+```{r instagram-1, exercise = TRUE}
 responses %>%
   select(social_media)
 ```
 
-### Use `str_detect` to identify Facebook users
+### Make Instagram variable
 
-Respondents could select multiple social media platform, so we need a way to figure out whether Facebook is included in their answer. 
+We want to calculate the percent of students who use Instagram. 
+students could select multiple social media platforms in the survey, so we need to make a new variable to indicate whether Instagram is included in their answer.  
 
-To do so, we'll use the `str_detect` and `mutate` functions  to create a new variable identifying whether the respondent uses Facebook. 
+We'll use the `str_detect` and `mutate` functions this new variable.
 
-- `str_detect`: returns the value **TRUE** if "Facebook" is included in `social_media` and **FALSE** otherwise.
+- `str_detect`: returns the value **TRUE** if "Instagram" is included in `social_media` and **FALSE** otherwise.
 - `mutate`: Add the new variable to the data set
 
-Run the code below to create the variable `facebook`. 
+We use the `<-` to save the updated data set, so we can use the new variable for analysis.
 
-```{r facebook-2, exercise = TRUE}
+Run the code below to make the new variable and view the `social_media` and `instagram` variables. 
+```{r instagram-2, exercise = TRUE}
 responses <- responses %>%
-  mutate(facebook  = str_detect(social_media, "Facebook"))
-```
+  mutate(instagram  = str_detect(social_media, "Instagram"))
 
-Now let's take a look at the data. 
-
-```{r facebook-3, exercise = TRUE, exercise.setup = "facebook-2"}
 responses %>%
-  select(social_media, facebook)
+  select(social_media, instagram)
 ```
 
-### Visualize `facebook`
+### Calculate percent Instagram 
 
-Let's make a bar plot to visualize `facebook`.
+We want to calculate the percent of students who use Instagram. We'll start by counting the number of students in each category of `instagram` then create a new variable of the corresponding percents. 
 
-```{r facebook-4, exercise = TRUE, exercise.setup = "facebook-2"}
-
+```{r instagram-percent, exercise = TRUE, exercise.setup = "instagram-2"}
+responses %>%
+  count(instagram) %>%
+  mutate(percent = n / sum(n) * 100)
 ```
 
-### Facebook and `device_leisure`
+### Your turn! TikTok users
 
-Are facebook users more likely to spend more time using their device for leisure? To answer this question, we'll make a histogram of `device_leisure` faceted by `facebook. 
+What percent of students use TikTok? Make a new variable that indicates whether a student selected TikTok, then calculate the percent of students who are TikTok users?
 
-```{r facebook-hist, exercise = TRUE, exercise.setup = "facebook-2"}
-ggplot(data = ___, aes(x = ___, color = facebook)) +
-  geom_histogram() +
-  facet_wrap(___)
+Fill in the code below to make a new variable to indicate whether students use TikTok. Then, view the data with your new variable. 
+
+```{r tik-tok, exercise = TRUE, exercise.setup = "instagram-2"}
+responses <- responses %>%
+  ___(tiktok = ___(___, "___"))
+
+responses %>%
+  select(social_media, tiktok)
 ```
 
-## Your turn! 
 
-Choose another social media platform in from the survey and visualize the responses!
+Now calculate the percent of students who use TikTok. 
 
-You can choose from 
-
-- "Instagram" 
-- "Twitter"
-- "Snapchat"
-- "Other"
-- "None/ I don't use social media"
-
-### Make a new variable
-
-Fill in the code below to use the `str_detect` and `mutate` functions to create a new variable. 
-
-```{r social-media, exercise = TRUE, exercise.setup = "facebook-2"}
-responses <- ___ %>%
-  ___(str_detect(___, "___"))
+```{r tik-tok-data, include  = FALSE}
+responses <- responses %>%
+  mutate(tiktok = str_detect(social_media, "TikTok"))
 ```
 
-Take a look at your new variable
 
-```{r social-media-2, exercise = TRUE, exercise.setup = "facebook-2"}
-___ %>%
-  select(social_media, ___)
+```{r tik-tok-percent, exercise = TRUE, exercise.setup = "tik-tok-data"}
+responses %>%
+  ___(___) %>%
+  mutate(percent = n / sum(___) * 100)
 ```
 
-### Visualize it! 
+### Relationship between TikTok and Instagram
 
-Make a bar plot of your social media variable and customize the plot! 
+Are students who use TikTok more likely to also use Instagram? Use the functions we've learned today to find out! You can make a visualization, calculate summary statistics, or both! It's up to you!
 
-```{r social-media-3, exercise = TRUE, exercise.setup = "social-media-2"}
-# make a bar plot of your social media variable
-
-```
-
-### Relationship between variables
-
-Now make a plot of explore the relationship between your social media variable and any of other variables we've used in this analysis!
-
-```{r social-media-4,exercise = TRUE, exercise.setup = "social-media-2" }
-## Make a plot to visualize the relationship
+```{r tik-tok-instagram, exercise = TRUE, exercise.setup = "tik-tok-data" }
+## Add your code here
 
 ```
 

@@ -1,0 +1,12 @@
+name: survey-analysis
+title: survey-analysis
+username:
+account: matackett
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3786806
+bundleId: 4341181
+url: https://matackett.shinyapps.io/survey-analysis/
+when: 1615688439.7176
+asMultiple: FALSE
+asStatic: FALSE
