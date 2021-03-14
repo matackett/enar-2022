@@ -5,6 +5,7 @@ output:
     progressive: true
     allow_skip: true
     css: "css/font-size.css"
+    df_print: "default"
 runtime: shiny_prerendered
 ---
 
@@ -20,16 +21,17 @@ library(tidyverse)
 library(tidytext)
 
 lyrics <- read_rds(here::here("tiktok-lyrics", "data/lyrics.rds"))
-lyrics_words <- read_rds(here::here("tiktok-lyrics", "data/lyric-words.rds"))
+lyric_words <- read_rds(here::here("tiktok-lyrics", "data/lyric-words.rds"))
 ```
 
-## Introduction
+## Guessing game
 
 ### 
 
 ```{r guess-1}
-question_text(
+question(
   "Can you tell what the following visualisation (that is missing labels) might be based on?",
+  type = "learnr_text",
   answer("Frequently used words in songs from 2020-2021 viral TikTok videos", correct = TRUE),
   correct = "You'll find out shortly whether your guess is correct!",
   incorrect = "You'll find out shortly whether your guess is correct!"
@@ -37,14 +39,14 @@ question_text(
 ```
 
 ```{r out.width = "100%", fig.width = 10, fig.asp = 0.7}
-lyrics_words %>%
-  count(track_title, word, sort = TRUE) %>%
-  group_by(track_title) %>%
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
   slice_head(n = 10) %>%
   ungroup() %>%
-  ggplot(aes(y = reorder_within(word, n, track_title), x = n, fill = track_title)) +
+  ggplot(aes(y = reorder_within(word, n, song), x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(vars(track_title), ncol = 3, scales = "free") +
+  facet_wrap(vars(song), ncol = 3, scales = "free") +
   scale_y_reordered() +
   scale_fill_viridis_d(option = "E") +
   theme_minimal(base_size = 14) +
@@ -61,8 +63,9 @@ lyrics_words %>%
 ###
 
 ```{r guess-2}
-question_text(
+question(
   "How about now? Can you tell what the following visualisation (that is missing labels) might be based on?",
+  type = "learnr_text",
   answer("Frequently used words in songs from 2020-2021 viral TikTok videos", correct = TRUE),
   correct = "You'll find out shortly whether your guess is correct!",
   incorrect = "You'll find out shortly whether your guess is correct!"
@@ -70,14 +73,14 @@ question_text(
 ```
 
 ```{r out.width = "100%", fig.width = 10, fig.asp = 0.7}
-lyrics_words %>%
-  count(track_title, word, sort = TRUE) %>%
-  group_by(track_title) %>%
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
   slice_head(n = 10) %>%
   ungroup() %>%
-  ggplot(aes(y = reorder_within(word, n, track_title), x = n, fill = track_title)) +
+  ggplot(aes(y = reorder_within(word, n, song), x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(vars(track_title), ncol = 3, scales = "free") +
+  facet_wrap(vars(song), ncol = 3, scales = "free") +
   scale_y_reordered() +
   scale_fill_viridis_d(option = "E") +
   theme_minimal(base_size = 14) +
@@ -96,15 +99,15 @@ lyrics_words %>%
 
 Let's reveal the answer!
 
-```{r out.width = "100%", fig.width = 10, fig.asp = 0.8}
-lyrics_words %>%
-  count(track_title, word, sort = TRUE) %>%
-  group_by(track_title) %>%
+```{r out.width = "100%", fig.width = 10, fig.asp = 0.8, fig.cap = "Frequently used words in songs from 2020-2021 viral TikTok videos. Stop words (e.g. the, I, of) as well as profanity were removed before visualizing the data."}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
   slice_head(n = 10) %>%
   ungroup() %>%
-  ggplot(aes(y = reorder_within(word, n, track_title), x = n, fill = track_title)) +
+  ggplot(aes(y = reorder_within(word, n, song), x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(vars(track_title), ncol = 3, scales = "free") +
+  facet_wrap(vars(song), ncol = 3, scales = "free") +
   scale_y_reordered() +
   scale_fill_viridis_d(option = "E") +
   theme_minimal(base_size = 14) +
@@ -112,77 +115,323 @@ lyrics_words %>%
     x = "Frequency",
     y = NULL,
     title = "Frequently used words in songs from 2020-2021 viral TikTok videos",
-    subtitle = "After removing stop words and profanity",
     caption = "Data: Genius - Song Lyrics & Knowledge"
   )
 ```
 
+## Introduction
 
+### 
+
+- The plot above, called a **bar plot** (or, more specifically, a **faceted bar plot**), is created using a statistical programming language called R.
+
+- The data come from [Genius.com](https://genius.com/), a website that "allows users to provide annotations and interpretation to song lyrics, news stories, sources, poetry, and documents." (See [here](https://genius.com/Genius-about-genius-annotated) for more.)
+
+- We collected data on lyrics of songs featured in some of the viral TikTok videos from the last year. 
+
+### `r emo::ji("anchor")` Here come the Sea Shanties
+
+Here is a look at one of these songs -- Wellerman by Nathan Evans. It's this one, in case you've not heard of it before!
+
+<center>
+![](https://youtu.be/UgsurPg9Ckw){width="60%"}
+</center>
+
+<br>
 
 ```{r}
-knitr::knit_exit()
+lyrics %>%
+  filter(song == "Wellerman")
 ```
 
-## Topic 1
+###
 
-### Exercise 
-
-*Here's a simple exercise with an empty code chunk provided for entering the answer.*
-
-Write the R code required to add two plus two:
-
-```{r two-plus-two, exercise=TRUE}
-
-```
-
-### Exercise with Code
-
-*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
-
-Now write a function that adds any two numbers and then call it:
-
-```{r add-function, exercise=TRUE, exercise.lines = 5}
-add <- function() {
-  
-}
-```
-
-## Topic 2
-
-### Exercise with Hint
-
-*Here's an exercise where the chunk is pre-evaluated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
-
-Modify the following code to limit the number of rows printed to 5:
-
-```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
-mtcars
-```
-
-```{r print-limit-hint}
-head(mtcars)
-```
-
-### Quiz
-
-*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
-
-Some questions to verify that you understand the purposes of various base and recommended R packages:
-
-```{r quiz}
-quiz(
-  question("Which package contains functions for installing other R packages?",
-    answer("base"),
-    answer("tools"),
-    answer("utils", correct = TRUE),
-    answer("codetools")
-  ),
-  question("Which of the R packages listed below are used to create plots?",
-    answer("lattice", correct = TRUE),
-    answer("tools"),
-    answer("stats"),
-    answer("grid", correct = TRUE)
+```{r common-words}
+question(
+  "Suppose you take a text (any text) written in English and break it up into words and count how many times each word occurs in the text. Which of the following would you expect to be among these words?",
+  type = "multiple",
+  answer("a", correct = TRUE),
+  answer("myself", correct = TRUE),
+  answer("can't", correct = TRUE),
+  answer("but", correct = TRUE),
+  answer("all", correct = TRUE),
+  incorrect = "Try again, are you sure you selected all possible words that frequently occur in texts in English?",
+  allow_retry = TRUE
   )
+```
+
+###
+
+- We call these **stop words** in text analysis. We have removed those, along with any profanity, from the song lyrics.
+
+- Then we "unnested" the lyrics so that instead of one lyric (line) in each row, we now have one word in each row.
+
+```{r}
+lyric_words %>%
+  filter(song == "Wellerman")
+```
+
+### Data frame
+
+- Data are organized in a structure called a **data frame**: our data frame is called `lyric_words`.
+
+- Each **row** represents an observation: a word from a lyric.
+
+- Each **column** represents a variable.
+
+*Click __Run Code__ to run the code below to view the data frame.*
+
+```{r view-df, exercise = TRUE}
+lyric_words
+```
+
+```{r nrow-ncol}
+question(
+  "How many observations and how many variables does the `lyric_words` data frame have?",
+  type = "single",
+  answer("1280 observations, 4 variables.", correct = TRUE),
+  answer("4 observations, 1280 variables."),
+  answer("1280 observations, no variables."),
+  answer("no observations, 4 variables."),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+  )
+```
+
+### Packages
+
+- R is an **open source** software language, meaning that anyone can contribute to R code.
+
+- **Packages** are the fundamental units of reproducible R code. They include reusable functions, the documentation that describes how to use them, and sample data.
+
+- We're going to use a collection of packages called the **tidyverse** -- they're specifically designed for data science.
+
+- We load packages using the `library()` function.
+
+*Click __Run Code__ to run the code below to load the tidyverse package.*
+
+```{r load-tidyverse, exercise = TRUE}
+library(tidyverse)
+```
+
+## Explore
+
+### Which songs are in the dataset?
+
+Remember: The variables in the dataset are `song`, `word`, `line`, and `artist`.
+
+*In the code below, fill in the blanks with the name of the appropriate variable so to get a list of the `distinct` set of songs in the dataset.*
+
+```{r distinct-song, exercise = TRUE}
+lyric_words %>%
+  distinct(___)
+```
+
+### The pipe operator: `%>%`
+
+- The code below can be read as "Start with the `lyric_words` data frame, **and then** find the `distinct` `song`s in the dataset.
+
+- We start the **pipeline** with the data frame, then we pipe it into a **function** -- functions in R are always followed by `()`, and in the parentheses goes what we want the function to be applied to. In data wrangling pipelines, this is usually the name of a variable.
+
+```{r eval=FALSE}
+lyric_words %>%
+  distinct(song)
+```
+
+### Which songs and artists are in the dataset?
+
+Remember: The variables in the dataset are `song`, `word`, `line`, and `artist`.
+
+```{r distinct-song-artist, exercise = TRUE}
+lyric_words %>%
+  distinct(song, ___)
+```
+
+
+
+### How many times does each word appear in the dataset?
+
+Remember: The variables in the dataset are `song`, `word`, `line`, and `artist`.
+
+```{r count-words, exercise = TRUE}
+lyric_words %>%
+  count(___)
+```
+
+```{r count-result-order}
+question(
+  "In which order are the words in the output above organised?",
+  type = "learnr_text",
+  answer("Alphabetical order", correct = TRUE),
+  answer("Alphabetical", correct = TRUE),
+  answer("alphabetical", correct = TRUE),
+  answer("alphabetical", correct = TRUE),
+  answer("alphabetic", correct = TRUE)
 )
 ```
 
+### What are the most frequently used words in the dataset?
+
+Remember: The variables in the dataset are `song`, `word`, `line`, and `artist`.
+
+```{r count-words-sort, exercise = TRUE}
+lyric_words %>%
+  count(___, sort = TRUE)
+```
+
+### Function arguments
+
+- In the code below `sort` is an **argument** of the function `count()`.
+
+- In the parentheses that follow functions, in addition to defining what to apply the function to, we can also define **how** to apply them, by setting options for the arguments.
+
+```{r}
+lyric_words %>%
+  count(word, sort = TRUE)
+```
+
+### What are the most frequently used words in each song in the dataset?
+
+Remember: The variables in the dataset are `song`, `word`, `line`, and `artist`.
+
+*Fill in the blanks with the name of the appopriate variable so that we count the occurrence of words in each song.*
+
+```{r count-song-words-sort, exercise = TRUE}
+lyric_words %>%
+  count(___, word, sort = TRUE)
+```
+
+## Visualize
+
+### 
+
+```{r}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  ggplot(aes(y = word, x = n)) +
+  geom_col()
+```
+
+```{r}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(y = word, x = n)) +
+  geom_col()
+```
+
+```{r}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(y = word, x = n)) +
+  geom_col() +
+  facet_wrap(vars(song), ncol = 3) 
+```
+
+```{r}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(y = word, x = n)) +
+  geom_col() +
+  facet_wrap(vars(song), ncol = 3, scales = "free") 
+```
+
+```{r}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(y = word, x = n, fill = song)) +
+  geom_col() +
+  facet_wrap(vars(song), ncol = 3, scales = "free") 
+```
+
+```{r}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(y = word, x = n, fill = song)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(song), ncol = 3, scales = "free") 
+```
+
+```{r}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(y = word, x = n, fill = song)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(song), ncol = 3, scales = "free") +
+  scale_fill_viridis_d(option = "E")
+```
+
+```{r}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(y = word, x = n, fill = song)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(song), ncol = 3, scales = "free") +
+  scale_fill_viridis_d(option = "E")
+```
+
+```{r}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(y = word, x = n, fill = song)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(song), ncol = 3, scales = "free") +
+  scale_fill_viridis_d(option = "E") +
+  labs(
+    x = "Frequency",
+    y = NULL,
+    title = "Frequently used words in songs from 2020-2021 viral TikTok videos",
+    caption = "Data: Genius - Song Lyrics & Knowledge"
+  )
+```
+
+```{r}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(y = word, x = n, fill = song)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(song), ncol = 3, scales = "free") +
+  scale_fill_viridis_d(option = "E") +
+  labs(
+    x = "Frequency",
+    y = NULL,
+    title = "Frequently used words in songs from 2020-2021 viral TikTok videos",
+    caption = "Data: Genius - Song Lyrics & Knowledge"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(y = reorder_within(word, n, song), x = n, fill = song)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(song), ncol = 3, scales = "free") +
+  scale_fill_viridis_d(option = "E") +
+  labs(
+    x = "Frequency",
+    y = NULL,
+    title = "Frequently used words in songs from 2020-2021 viral TikTok videos",
+    caption = "Data: Genius - Song Lyrics & Knowledge"
+  ) +
+  theme_minimal()
+```

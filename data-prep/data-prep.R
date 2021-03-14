@@ -87,7 +87,8 @@ lyrics <- bind_rows(
   savage_love,
   say_so,
   wellerman
-)
+) %>%
+  rename(song = track_title)
 
 write_rds(lyrics, file = "tiktok-lyrics/data/lyrics.rds")
 
@@ -98,6 +99,6 @@ lyric_words <- lyrics %>%
   filter(!str_detect(word, "nigg")) %>%
   filter(!str_detect(word, "fuck")) %>%
   filter(!str_detect(word, "whor")) %>%
-  relocate(track_title, word)
+  relocate(song, word)
 
 write_rds(lyric_words, file = "tiktok-lyrics/data/lyric-words.rds")
