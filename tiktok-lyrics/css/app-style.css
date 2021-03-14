@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
+
+
+body {
+  font-family: Open Sans !important;
+  font-size: 16px !important;
+}
+
+p.caption {
+  font-size: 14px !important;
+}
+
+h2 {
+  font-family: Secular One !important;
+  color: #414d6b !important;
+
+}
+
+h3 {
+  font-family: Secular One !important;
+  color: #414d6b !important;
+}
+
+
+.topicsList .topic {
+  font-family: Open Sans !important;
+  font-weight: bold !important;
+  border-color: gainsboro !important;
+  background-color: white ;
+  border-left: none !important;
+  padding-left: 10px !important;
+  font-size: 16px !important;
+}
+
+.btn-primary {
+  background-color: #7d7d7d !important;
+  color: white !important;
+  font-family: Secular One !important;
+  font-size: 16px !important;
+}
+
+.btn, .btn-success, .btn-xs, .btn-tutorial-run, .pull-right {
+  background-color: #BCAF6F !important;
+  color: white !important;
+  font-family: Secular One !important;
+}
+
+.btn-default {
+  background-color: #7d7d7d !important;
+  color: white !important;
+  font-family: Secular One !important;
+  font-size: 16px !important;
+}
+
+.topicsList .topic.current {
+  border-color: white !important;
+  background-color: #414d6b !important;
+  color: white !important;
+}
+
+a {
+  color: #414d6b !important;
+}
+
+.your-turn {
+  padding: 1em 1em 0em 1em;
+  border-left: 1pt solid #E0E0E0;
+  border-right: 1pt solid #E0E0E0;
+  border-top: 1pt solid #E0E0E0;
+}
+.your-turn:before {
+  content: "Your turn: ";
+  clear: right;
+  display: block;
+  font-weight: bold !important;
+  color: #BCAF6F;
+}

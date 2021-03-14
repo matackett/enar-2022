@@ -4,7 +4,7 @@ output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
-    css: "css/font-size.css"
+    css: "css/app-style.css"
     df_print: "default"
 runtime: shiny_prerendered
 ---
@@ -26,7 +26,7 @@ lyric_words <- read_rds(here::here("tiktok-lyrics", "data/lyric-words.rds"))
 
 ## Guessing game
 
-### 
+### Guess
 
 ```{r guess-1}
 question(
@@ -44,7 +44,7 @@ lyric_words %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
   ungroup() %>%
-  ggplot(aes(y = reorder_within(word, n, song), x = n, fill = song)) +
+  ggplot(mapping = aes(y = reorder_within(word, n, song), x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(vars(song), ncol = 3, scales = "free") +
   scale_y_reordered() +
@@ -60,7 +60,7 @@ lyric_words %>%
     )
 ```
 
-###
+### Guess again
 
 ```{r guess-2}
 question(
@@ -78,7 +78,7 @@ lyric_words %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
   ungroup() %>%
-  ggplot(aes(y = reorder_within(word, n, song), x = n, fill = song)) +
+  ggplot(mapping = aes(y = reorder_within(word, n, song), x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(vars(song), ncol = 3, scales = "free") +
   scale_y_reordered() +
@@ -95,9 +95,9 @@ lyric_words %>%
     )
 ```
 
-###
+### Let's reveal the answer!
 
-Let's reveal the answer!
+Did you get it right?
 
 ```{r out.width = "100%", fig.width = 10, fig.asp = 0.8, fig.cap = "Frequently used words in songs from 2020-2021 viral TikTok videos. Stop words (e.g. the, I, of) as well as profanity were removed before visualizing the data."}
 lyric_words %>%
@@ -105,7 +105,7 @@ lyric_words %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
   ungroup() %>%
-  ggplot(aes(y = reorder_within(word, n, song), x = n, fill = song)) +
+  ggplot(mapping = aes(y = reorder_within(word, n, song), x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(vars(song), ncol = 3, scales = "free") +
   scale_y_reordered() +
@@ -121,7 +121,7 @@ lyric_words %>%
 
 ## Introduction
 
-### 
+### Hello data!
 
 - The plot above, called a **bar plot** (or, more specifically, a **faceted bar plot**), is created using a statistical programming language called R.
 
@@ -144,7 +144,7 @@ lyrics %>%
   filter(song == "Wellerman")
 ```
 
-###
+### Common words
 
 ```{r common-words}
 question(
@@ -160,9 +160,9 @@ question(
   )
 ```
 
-###
+### Lyrics to words
 
-- We call these **stop words** in text analysis. We have removed those, along with any profanity, from the song lyrics.
+- In text analysis, commonly used words in any language are called **stop words**. We have removed those, along with any profanity, from the song lyric data we provided to you.
 
 - Then we "unnested" the lyrics so that instead of one lyric (line) in each row, we now have one word in each row.
 
@@ -179,7 +179,9 @@ lyric_words %>%
 
 - Each **column** represents a variable.
 
-*Click __Run Code__ to run the code below to view the data frame.*
+::: {.your-turn}
+Click *Run Code* to run the code below to view the data frame.
+:::
 
 ```{r view-df, exercise = TRUE}
 lyric_words
@@ -208,7 +210,9 @@ question(
 
 - We load packages using the `library()` function.
 
-*Click __Run Code__ to run the code below to load the tidyverse package.*
+::: {.your-turn}
+Click *Run Code* to load the tidyverse package.
+:::
 
 ```{r load-tidyverse, exercise = TRUE}
 library(tidyverse)
@@ -218,14 +222,18 @@ library(tidyverse)
 
 ### Which songs are in the dataset?
 
-Remember: The variables in the dataset are `song`, `word`, `line`, and `artist`.
-
-*In the code below, fill in the blanks with the name of the appropriate variable so to get a list of the `distinct` set of songs in the dataset.*
+::: {.your-turn}
+Fill in the blanks with the name of the appropriate variable to get a list of the `distinct` set of songs in the dataset.
+:::
 
 ```{r distinct-song, exercise = TRUE}
 lyric_words %>%
   distinct(___)
 ```
+
+<div id="distinct-song-hint">
+**Hint:** The variables in the dataset are `song`, `word`, `line`, and `artist`.
+</div>
 
 ### The pipe operator: `%>%`
 
@@ -240,23 +248,33 @@ lyric_words %>%
 
 ### Which songs and artists are in the dataset?
 
-Remember: The variables in the dataset are `song`, `word`, `line`, and `artist`.
+::: {.your-turn}
+Fill in the blanks with the name of the appropriate variable to get a list of the `distinct` set of songs and artists in the dataset.
+:::
 
 ```{r distinct-song-artist, exercise = TRUE}
 lyric_words %>%
   distinct(song, ___)
 ```
 
-
+<div id="distinct-song-artist-hint">
+**Hint:** The variables in the dataset are `song`, `word`, `line`, and `artist`.
+</div>
 
 ### How many times does each word appear in the dataset?
 
-Remember: The variables in the dataset are `song`, `word`, `line`, and `artist`.
+::: {.your-turn}
+Fill in the blanks with the name of the appropriate variable to `count` the occurrences of words in the dataset.
+:::
 
 ```{r count-words, exercise = TRUE}
 lyric_words %>%
   count(___)
 ```
+
+<div id="count-words-hint">
+**Hint:** The variables in the dataset are `song`, `word`, `line`, and `artist`.
+</div>
 
 ```{r count-result-order}
 question(
@@ -272,12 +290,18 @@ question(
 
 ### What are the most frequently used words in the dataset?
 
-Remember: The variables in the dataset are `song`, `word`, `line`, and `artist`.
+::: {.your-turn}
+Fill in the blanks with the name of the appropriate variable to `count` the occurrences of words in the dataset and sort them in descending order. The `sort` argument can take on one of two values: `TRUE` or `FALSE`.
+:::
 
 ```{r count-words-sort, exercise = TRUE}
 lyric_words %>%
-  count(___, sort = TRUE)
+  count(___, sort = ___)
 ```
+
+<div id="count-words-sort-hint">
+**Hint:** The variables in the dataset are `song`, `word`, `line`, and `artist`. Also, `TRUE` and `FALSE` are special values (logicals) and must be spelled out using capital letters.
+</div>
 
 ### Function arguments
 
@@ -285,110 +309,310 @@ lyric_words %>%
 
 - In the parentheses that follow functions, in addition to defining what to apply the function to, we can also define **how** to apply them, by setting options for the arguments.
 
-```{r}
+```{r echo = TRUE}
 lyric_words %>%
   count(word, sort = TRUE)
 ```
 
 ### What are the most frequently used words in each song in the dataset?
 
-Remember: The variables in the dataset are `song`, `word`, `line`, and `artist`.
-
-*Fill in the blanks with the name of the appopriate variable so that we count the occurrence of words in each song.*
+::: {.your-turn}
+Fill in the blanks with the name of the appropriate variable so that we `count` the occurrence of words in each song.
+:::
 
 ```{r count-song-words-sort, exercise = TRUE}
 lyric_words %>%
   count(___, word, sort = TRUE)
 ```
 
-## Visualize
+<div id="count-song-words-sort-hint">
+**Hint:** The variables in the dataset are `song`, `word`, `line`, and `artist`.
+</div>
 
 ### 
 
-```{r}
+- The following output is an improvement on what we had before, but it's still pretty tough to see the most common words in each song.
+
+- Next, we'll take a different approach, and **visualize** the data to reveal this insight.
+
+```{r echo = TRUE}
+lyric_words %>%
+  count(song, word, sort = TRUE)
+```
+
+## Visualize
+
+### Visualize the output
+
+- The output from the previous step looked like the following:
+
+```{r echo = TRUE}
+lyric_words %>%
+  count(song, word, sort = TRUE)
+```
+
+- And we want to visualize it with a bar plot where we place the `word`s on the y-axis and the number of occurrences (which is stored in the variable called `n` on the x-axis.).
+
+- We use the `ggplot()` function for constructing plots, and in this function we map the variable `word` to the y `aes`thetic and the variable `n` to the `x` aesthetic, and then we add (`+`) another layer where we express that we want to use `col`umns (i.e. bars) as the `geom`etric objects to represent our data: `geom_col()`.
+
+::: {.your-turn}
+Click *Run Code* to run the code and make your first visualization. What do you think about the result? Is it helpful/informative for revealing insights into the data?
+:::
+
+```{r viz-1, exercise = TRUE, out.width = "100%", fig.asp = 1.2}
 lyric_words %>%
   count(song, word, sort = TRUE) %>%
-  ggplot(aes(y = word, x = n)) +
+  ggplot(mapping = aes(y = word, x = n)) +
   geom_col()
 ```
 
-```{r}
+### Visualize the top 10 words from each song
+
+Putting all of that data into a single plot does not result in a helpful/informative plot. Let's be a bit more selective!
+
+- In the code below we added two more lines of code between `count()` for counting occurrences of each word and `ggplot()` for creating the visualization:
+
+```{r eval=FALSE, echo=TRUE}
+... %>%
+  group_by(song) %>%
+  slice_head(n = ___) %>%
+  ...
+```
+
+- Here we are telling R to group the output by the `song` variable (so whatever we do next is done for each song separately), and then...
+
+- To slice the top (head) `n = ___` rows of the output for each song.
+
+::: {.your-turn}
+Figure out what `n = ___` should be in the `slide_head()` step for visualizing the top 10 words from each song and then fill in the rest of the plotting code.
+:::
+
+```{r viz-2, exercise = TRUE, out.width = "100%", fig.asp = 1.2}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = ___) %>%
+  ggplot(mapping = aes(y = ___, x = ___)) +
+  geom___()
+```
+
+<div id="viz-2-hint">
+**Hint:** We use the `ggplot()` function for constructing plots, and in this function we map the variable `word` to the y `aes`thetic and the variable `n` to the `x` aesthetic, and then we add (`+`) another layer where we express that we want to use `col`umns (i.e. bars) as the `geom`etric objects to represent our data: `geom_col()`.
+</div>
+
+```{r viz-2-solution}
 lyric_words %>%
   count(song, word, sort = TRUE) %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
-  ggplot(aes(y = word, x = n)) +
+  ggplot(mapping = aes(y = word, x = n)) +
   geom_col()
 ```
 
-```{r}
+### Visualize the top 10 words from each song, in a separate facet for each song
+
+- The code below has a new layer added to the plot, `facet_wrap()`, which allows us to facet the plot by the variable we specify.
+
+- **Facet**ing means creating separate sub-plots for each level of the variable we're faceting by.
+
+::: {.your-turn}
+Fill in the blanks with the name of the appropriate variable to facet by and place the facets in a layout of 3 columns.
+:::
+
+```{r viz-3, exercise = TRUE}
 lyric_words %>%
   count(song, word, sort = TRUE) %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
-  ggplot(aes(y = word, x = n)) +
+  ggplot(mapping = aes(y = word, x = n)) +
+  geom_col() +
+  facet_wrap(vars(___), ncol = ___) 
+```
+
+<div id="viz-3-hint">
+**Hint:** The variables in the dataset are `song`, `word`, `line`, and `artist`.
+</div>
+
+```{r viz-3-solution}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(mapping = aes(y = word, x = n)) +
   geom_col() +
   facet_wrap(vars(song), ncol = 3) 
 ```
 
-```{r}
+### Free the scales!
+
+- The previous visualization achieved one goal (separate facets for each song) but created another (shared x and y-axes across the facets make the visualization difficult to read).
+
+- We can address this by setting a new argument in the `facet_wrap()`: `scales`. This argument takes four values: `"fixed"` (the default), free (`"free"`), or free in one dimension (`"free_x"` or `"free_y"`).
+
+::: {.your-turn}
+Try out the various options for the `scales` argument to achieve an easier to read/understand visualization.
+:::
+
+```{r viz-4, exercise = TRUE}
 lyric_words %>%
   count(song, word, sort = TRUE) %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
-  ggplot(aes(y = word, x = n)) +
+  ggplot(mapping = aes(y = word, x = n)) +
+  geom_col() +
+  facet_wrap(vars(song), ncol = 3, scales = "___") 
+```
+
+<div id="viz-4-hint">
+**Hint:** Not sure which of the four options is the right answer? Just try them one at a time, run the code, and see if you like the result.
+</div>
+
+```{r viz-4-solution}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(mapping = aes(y = word, x = n)) +
   geom_col() +
   facet_wrap(vars(song), ncol = 3, scales = "free") 
 ```
 
-```{r}
+### Add some color
+
+::: {.your-turn}
+Add a new `aes`thetic to your visualization so that the each song is represented with a separate color. This means specifying the variable you want to map to the `fill` aesthetic.
+:::
+
+```{r viz-5, exercise = TRUE}
 lyric_words %>%
   count(song, word, sort = TRUE) %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
-  ggplot(aes(y = word, x = n, fill = song)) +
+  ggplot(mapping = aes(y = word, x = n, fill = ___)) +
   geom_col() +
   facet_wrap(vars(song), ncol = 3, scales = "free") 
 ```
 
-```{r}
+```{r viz-5-solution}
 lyric_words %>%
   count(song, word, sort = TRUE) %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
-  ggplot(aes(y = word, x = n, fill = song)) +
+  ggplot(mapping = aes(y = word, x = n, fill = song)) +
+  geom_col() +
+  facet_wrap(vars(song), ncol = 3, scales = "free") 
+```
+
+### Remove redundancy
+
+::: {.your-turn}
+The facet labels already tell us which song is which, so the automatically generated legend that also gives us the same information is redundant. Turn it off by specifying a new argument, `show.legend`, in the `geom_col()` layer. This argument takes two values: `TRUE` or `FALSE`. Try them out to turn off the legend.
+:::
+
+```{r viz-6, exercise = TRUE}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(mapping = aes(y = word, x = n, fill = song)) +
+  geom_col(show.legend = ___) +
+  facet_wrap(vars(song), ncol = 3, scales = "free") 
+```
+
+<div id="viz-6-hint">
+**Hint:** `TRUE` and `FALSE` are special values (logicals) and must be spelled out using capital letters.
+</div>
+
+```{r viz-6-solution}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(mapping = aes(y = word, x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(vars(song), ncol = 3, scales = "free") 
 ```
 
-```{r}
+### Make your plot more accessible
+
+- There may be many reasons why you might want to change the color palette of your plot from the default to something else.
+
+- One of these is that the default color palette is unfortunately not color-blind friendly.
+
+- A color-blind friendly color palette is the [`viridis` palette](https://ggplot2.tidyverse.org/reference/scale_viridis.html).
+
+- We can change the color palette that is used for the `fill` aesthetic with a new layer that starts with `scale_fill`. In this case we want to use the `viridis` palette and we're working with a `d`iscrete (not continuous) scale so we use the `scale_fill_viridis_d()` function.
+
+::: {.your-turn}
+First, run the code as is. Then, add an argument called `option` to the `scale_fill_viridis_d()` function and set this to one of the following: 
+
+- `"A"` for magma
+- `"B"` for inferno
+- `"C"` for plasma
+- `"D"` for viridis (default)
+- `"E"` for cividis
+
+Use whichever scale you like best!
+:::
+
+```{r viz-7, exercise = TRUE}
 lyric_words %>%
   count(song, word, sort = TRUE) %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
-  ggplot(aes(y = word, x = n, fill = song)) +
+  ggplot(mapping = aes(y = word, x = n, fill = song)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(song), ncol = 3, scales = "free") +
+  scale_fill_viridis_d()
+```
+
+```{r viz-7-solution}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(mapping = aes(y = word, x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(vars(song), ncol = 3, scales = "free") +
   scale_fill_viridis_d(option = "E")
 ```
 
-```{r}
+### Add labels
+
+A picture is worth a thousand words but a picture with good annotation and labeling is worth even more!
+
+::: {.your-turn}
+Repeat your choice of color palette in the `scale_fill_viridis_d()` layer (from the previous exercise) and then add labels to your plot.
+
+- The `x` axis should say something like count or frequency.
+- We don't really need a label for the y-axis, it's obvious that we have words there, so you can set this to `NULL`.
+- Come up with a `title` that tells your audience what is in this plot.
+- It's also a good idea to indicate your data source in your visualizations. We've already added this for you in the `caption`.
+:::
+
+```{r viz-8, exercise = TRUE}
 lyric_words %>%
   count(song, word, sort = TRUE) %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
-  ggplot(aes(y = word, x = n, fill = song)) +
+  ggplot(mapping = aes(y = word, x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(vars(song), ncol = 3, scales = "free") +
-  scale_fill_viridis_d(option = "E")
+  scale_fill_viridis_d(option = "___") +
+  labs(
+    x = "___",
+    y = ___,
+    title = "___",
+    caption = "Data: Genius - Song Lyrics & Knowledge"
+  )
 ```
 
-```{r}
+```{r viz-8-solution}
 lyric_words %>%
   count(song, word, sort = TRUE) %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
-  ggplot(aes(y = word, x = n, fill = song)) +
+  ggplot(mapping = aes(y = word, x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(vars(song), ncol = 3, scales = "free") +
   scale_fill_viridis_d(option = "E") +
@@ -400,15 +624,45 @@ lyric_words %>%
   )
 ```
 
-```{r}
+### Theming
+
+Some people love the gray backgrounds of `ggplot`s and some not so much... Thankfully, there are many other theming options you can easily apply to your plots -- see the help page [here](https://ggplot2.tidyverse.org/reference/ggtheme.html) for options.
+
+::: {.your-turn}
+Repeat your choice of color palette in the `scale_fill_viridis_d()` layer (from the previous exercise) and then add a new theme.
+:::
+
+```{r viz-9, exercise = TRUE}
 lyric_words %>%
   count(song, word, sort = TRUE) %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
-  ggplot(aes(y = word, x = n, fill = song)) +
+  ggplot(mapping = aes(y = word, x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(vars(song), ncol = 3, scales = "free") +
-  scale_fill_viridis_d(option = "E") +
+  scale_fill_viridis_d(option = "___") +
+  labs(
+    x = "Frequency",
+    y = NULL,
+    title = "Frequently used words in songs from 2020-2021 viral TikTok videos",
+    caption = "Data: Genius - Song Lyrics & Knowledge"
+  ) +
+  theme___()
+```
+
+<div id="viz-9-hint">
+**Hint:** For example, I'm a fan of `theme_minimal()` so that's what I'd add to the last line. You might prefer `theme_dark()` or `theme_linedraw()` or any of the other options listed [here](https://ggplot2.tidyverse.org/reference/ggtheme.html).
+</div>
+
+```{r viz-9-solution}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(mapping = aes(y = word, x = n, fill = song)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(song), ncol = 3, scales = "free") +
+  scale_fill_viridis_d(option = "___") +
   labs(
     x = "Frequency",
     y = NULL,
@@ -418,15 +672,44 @@ lyric_words %>%
   theme_minimal()
 ```
 
-```{r}
+
+### Finishing touches
+
+The one annoying feature left in our plot is that the words that appear commonly in each song are not presented in order of most common to least common. We can fix this with some helper functions like `reorder_within()` that allows us to reorder the words in each song by `n` and also `scale_y_reordered()` that then places the correct labels for the reordered words on the y-axis.
+
+::: {.your-turn}
+Bring in your choice of color palette and theme from previous exercises and then run the code to see the final plot!
+:::
+
+```{r viz-10, exercise = TRUE}
 lyric_words %>%
   count(song, word, sort = TRUE) %>%
   group_by(song) %>%
   slice_head(n = 10) %>%
-  ggplot(aes(y = reorder_within(word, n, song), x = n, fill = song)) +
+  ggplot(mapping = aes(y = reorder_within(word, n, song), x = n, fill = song)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(song), ncol = 3, scales = "free") +
+  scale_fill_viridis_d(option = "___") +
+  scale_y_reordered() +
+  labs(
+    x = "Frequency",
+    y = NULL,
+    title = "Frequently used words in songs from 2020-2021 viral TikTok videos",
+    caption = "Data: Genius - Song Lyrics & Knowledge"
+  ) +
+  theme____()
+```
+
+```{r viz-10-solution}
+lyric_words %>%
+  count(song, word, sort = TRUE) %>%
+  group_by(song) %>%
+  slice_head(n = 10) %>%
+  ggplot(mapping = aes(y = reorder_within(word, n, song), x = n, fill = song)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(vars(song), ncol = 3, scales = "free") +
   scale_fill_viridis_d(option = "E") +
+  scale_y_reordered() +
   labs(
     x = "Frequency",
     y = NULL,
