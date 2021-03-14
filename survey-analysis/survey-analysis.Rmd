@@ -77,7 +77,9 @@ Welcome! In this tutorial, we'll learn R functions that can help us wrangle, sum
 
 We'll use the **tidyverse**, a collection of R packages designed for data science.
 
-Run the code to load the **tidyverse**.
+::: {.your-turn}
+Click *Run Code* to load the tidyverse package.
+:::
 
 ```{r load-packages, exercise = TRUE}
 library(tidyverse)
@@ -100,7 +102,9 @@ Here is the codebook for `responses`:
 
 ### Let's take look at the data
 
-Run the code to view the data! 
+::: {.your-turn}
+Click run **Run Code** to view the data!
+::: 
 
 ```{r view-data, exercise = TRUE}
 responses
@@ -131,7 +135,9 @@ There are many ways to customize plots made with `ggplot`. For now, let's change
 - To change the color of the bars, we'll include the argument `fill = "[COLOR]"` inside `geom_bar()`. In the code below, you can see that we've changed the color of the bars to blue. 
 - We'll add a title using `labs()`. 
 
+::: {.your-turn}
 Update the code by replacing `blue` with a color of your choice and adding a title. You can [click here](https://www.r-graph-gallery.com/42-colors-names.html) for a list of colors. 
+::: 
 
 ```{r school-level-custom, exercise = TRUE}
 ggplot(data = responses, aes(x = school_level)) +
@@ -160,7 +166,9 @@ Since we want to fill in the color of the bars based on a variable (instead of m
 - Define `fill = [VAR]` as an argument in `aes()`. 
 - Include `position = "fill"` in `geom_bar()`
 
+::: {.your-turn}
 Fill in the code to make a bar plot of `school_level` with the bars filled in based on `school_format`. Notice that we've also added labels for the axes and legend.
+:::
 
 ```{r school-level-stacked, exercise = TRUE}
 ggplot(data = responses, aes(x = ___, fill = ___)) +
@@ -177,14 +185,19 @@ ggplot(data = responses, aes(x = ___, fill = ___)) +
 
 **Is there a relationship between where students live and whether they are attending classes in person or online?**
 
+::: {.your-turn}
 Start by counting the number of students attending school in person and online by region. 
+:::
+
 ```{r school-format-region, exercise = TRUE}
 responses %>%
   ___(___) %>%
   ___(___)
 ```
 
+::: {.your-turn}
 Then, make a stacked bar chart of  `region`, filling in the color based on `school_format`. 
+:::
 
 ```{r region-school, exercise = T}
 ggplot(data = ___, aes(x = ___, fill = ___)) +
@@ -268,7 +281,9 @@ ggplot(data = responses, aes(x = device_school, y = device_leisure,
 
 ### Your turn!
 
-Make a scatterplot the relationship between percent of time using an electronic device for school (`device_school`) and for leisure activities (`device_leisure`) by `region`.  and school format. Make a scatterplot using color and faceting to visualize the relationship between these variables. 
+::: {.your-turn}
+Make a scatterplot the relationship between percent of time using an electronic device for school (`device_school`) and for leisure activities (`device_leisure`) by `region`.
+:::
 
 ```{r device-by-region, exercise = TRUE}
 ggplot(data = responses, aes(x = ___, y = ___, 
@@ -281,7 +296,9 @@ ggplot(data = responses, aes(x = ___, y = ___,
       title = "___")
 ```
 
+::: {.your-turn}
 Once you've made your scatterplot, try updating the code to facet by `school_format`! 
+:::
 
 **What are two observations from your plot?** 
 
@@ -314,7 +331,8 @@ Run the code below to make the new variable `instagram`.
 
 ```{r instagram-2, exercise = TRUE}
 responses <- responses %>%
-  mutate(instagram  = str_detect(social_media, "___"))
+  mutate(instagram  = str_detect(social_media, "Instagram"))
+
 ```
 
 Now let's take a look at our new variable! 
@@ -338,7 +356,9 @@ responses %>%
 
 What percent of students use TikTok? Make a new variable that indicates whether a student selected TikTok, then calculate the percent of students who are TikTok users.
 
+::: {.your-turn}
 Fill in the code below to make a new variable to indicate whether students use TikTok. Then, view the data with your new variable. 
+::: 
 
 ```{r tik-tok, exercise = TRUE, exercise.setup = "instagram-2"}
 responses <- responses %>%
@@ -348,7 +368,9 @@ responses %>%
   select(social_media, tiktok)
 ```
 
-Now calculate the percent of students who use TikTok. 
+::: {.your-turn}
+Then, calculate the percent of students who use TikTok! 
+::: 
 
 ```{r tik-tok-data, include  = FALSE}
 responses <- responses %>%
@@ -365,7 +387,9 @@ responses %>%
 
 Are students who use Instagram more likely to use TikTok? Let's use the functions we've learned today to find out! 
 
-Calculate the percent of TikTok users for each level of `instagram`. 
+::: {.your-turn}
+Calculate the percent of TikTok users for each level of `instagram`.
+::: 
 
 ```{r tik-tok-instagram, exercise = TRUE, exercise.setup = "tik-tok-data" }
 responses %>%
@@ -379,7 +403,9 @@ responses %>%
   ___(percent = ___ / sum(___) * 100)
 ```
 
+::: {.your-turn}
 Then, make a stacked bar plot to view the relationship between the two variables! 
+:::
 
 ```{r tik-tok-instagram-2, exercise = TRUE, exercise.setup = "tik-tok-data" }
 

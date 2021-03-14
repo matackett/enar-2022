@@ -349,7 +349,7 @@ Start by counting the number of students attending school in person and online b
 <p>Run the code below to make the new variable <code>instagram</code>.</p>
 <div class="tutorial-exercise" data-label="instagram-2" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>responses &lt;- responses %&gt;%
-  mutate(instagram  = str_detect(social_media, &quot;___&quot;))</code></pre>
+  mutate(instagram  = str_detect(social_media, &quot;Instagram&quot;))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <p>Now let’s take a look at our new variable!</p>
@@ -1184,7 +1184,7 @@ output$`tutorial-exercise-instagram-2-output` <- renderUI({
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache("instagram-2", list(setup = NULL, chunks = list(list(label = "instagram-2", 
-    code = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"___\"))", 
+    code = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"Instagram\"))\n", 
     opts = list(label = "\"instagram-2\"", exercise = "TRUE"), 
     engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
@@ -1205,8 +1205,8 @@ learnr:::store_exercise_cache("instagram-2", list(setup = NULL, chunks = list(li
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, tutorial = TRUE, exercise.timelimit = 30, 
         label = "instagram-2", exercise = TRUE, code = c("responses <- responses %>%", 
-        "  mutate(instagram  = str_detect(social_media, \"___\"))"
-        ), out.width.px = 624, out.height.px = 384, params.src = "instagram-2, exercise = TRUE", 
+        "  mutate(instagram  = str_detect(social_media, \"Instagram\"))", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "instagram-2, exercise = TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"))
 </script>
@@ -1219,8 +1219,8 @@ output$`tutorial-exercise-instagram-view-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("instagram-view", list(setup = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"___\"))", 
-    chunks = list(list(label = "instagram-2", code = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"___\"))", 
+learnr:::store_exercise_cache("instagram-view", list(setup = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"Instagram\"))\n", 
+    chunks = list(list(label = "instagram-2", code = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"Instagram\"))\n", 
         opts = list(label = "\"instagram-2\"", exercise = "TRUE"), 
         engine = "r"), list(label = "instagram-view", code = "responses %>%\n  select(social_media, instagram)", 
         opts = list(label = "\"instagram-view\"", exercise = "TRUE", 
@@ -1258,8 +1258,8 @@ output$`tutorial-exercise-instagram-percent-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("instagram-percent", list(setup = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"___\"))", 
-    chunks = list(list(label = "instagram-2", code = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"___\"))", 
+learnr:::store_exercise_cache("instagram-percent", list(setup = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"Instagram\"))\n", 
+    chunks = list(list(label = "instagram-2", code = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"Instagram\"))\n", 
         opts = list(label = "\"instagram-2\"", exercise = "TRUE"), 
         engine = "r"), list(label = "instagram-percent", code = "responses %>%\n  count(___) %>%\n  mutate(percent = n / sum(n) * 100)", 
         opts = list(label = "\"instagram-percent\"", exercise = "TRUE", 
@@ -1297,8 +1297,8 @@ output$`tutorial-exercise-tik-tok-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("tik-tok", list(setup = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"___\"))", 
-    chunks = list(list(label = "instagram-2", code = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"___\"))", 
+learnr:::store_exercise_cache("tik-tok", list(setup = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"Instagram\"))\n", 
+    chunks = list(list(label = "instagram-2", code = "responses <- responses %>%\n  mutate(instagram  = str_detect(social_media, \"Instagram\"))\n", 
         opts = list(label = "\"instagram-2\"", exercise = "TRUE"), 
         engine = "r"), list(label = "tik-tok", code = "responses <- responses %>%\n  ___(tiktok = ___(___, \"___\"))\n\nresponses %>%\n  select(social_media, tiktok)", 
         opts = list(label = "\"tik-tok\"", exercise = "TRUE", 
