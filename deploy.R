@@ -13,8 +13,8 @@ deployApp(
 )
 
 deployApp(
-  appDir = "survey-analysis",
-  appTitle = "Survey analysis",
+  appDir = "all-about-you",
+  appTitle = "All about you!",
   account = "minecr",
   forceUpdate = TRUE,
   launch.browser = TRUE
