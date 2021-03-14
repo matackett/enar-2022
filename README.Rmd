@@ -1,6 +1,7 @@
 ---
 title: "Introduction to R"
 subtitle: "2021 ENAR Fostering Diversity in Biostatistics Workshop"
+output: "github_document"
 ---
 
 This workshop is designed for high school and undergraduate students who are new to R and it is presented as part of the "2021 ENAR Fostering Diversity in Biostatistics Workshop".
