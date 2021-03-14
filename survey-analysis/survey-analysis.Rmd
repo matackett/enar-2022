@@ -30,7 +30,9 @@ tutorial_options(
   )
 
 # hide non-exercise code chunks
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE, 
+                      message = FALSE)
 
 # set ggplot options 
 
@@ -212,7 +214,8 @@ Now let's see if the relationship between `device_school` and `device_leisure` d
 We'll add color to our scatterplot to look at the difference by school format.
 
 ```{r device-by-format, exercise = TRUE}
-ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_format)) +
+ggplot(data = responses, aes(x = device_school, y = device_leisure, 
+                             color = school_format)) +
   geom_point()
 ```
 
@@ -221,7 +224,8 @@ ggplot(data = responses, aes(x = device_school, y = device_leisure, color = scho
 We can also use `geom_smooth()` to get a better view of the general relationship between the variables.  
 
 ```{r device-by-format-smooth, exercise = TRUE}
-ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_format)) +
+ggplot(data = responses, aes(x = device_school, y = device_leisure, 
+                             color = school_format)) +
   geom_point() +
   geom_smooth()
 ```
@@ -233,8 +237,10 @@ Do the observations we've made about electronic device use differ for high schoo
 Let's add a `facet_wrap` to look at separate scatterplots based on school level.  We'll also add axis labels and a title to the plot.
 
 ```{r device-by-format-facet, exercise = TRUE}
-ggplot(data = responses, aes(x = device_school, y = device_leisure, color = school_format)) +
+ggplot(data = responses, aes(x = device_school, y = device_leisure, 
+                             color = school_format)) +
   geom_point() +
+  geom_smooth() +
   facet_wrap(vars(school_level)) + 
   labs(x = "% time using device for school", 
       y = "% time using device for leisure", 
