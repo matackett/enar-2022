@@ -8,6 +8,10 @@ output:
 runtime: shiny_prerendered
 ---
 
+<!-- Add JavaScript code for making the exercise code larger -->
+<script language="JavaScript" src="js/exercise-font-size.js"></script>
+
+
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
@@ -50,11 +54,11 @@ responses <- read_sheet("https://docs.google.com/spreadsheets/d/12TImpxFxdObvzjC
 # prep data 
 responses <- responses %>%
   select(-Timestamp) %>%
-  rename(school_level = `Are you currently in high school or undergraduate?`,
-         school_format = `Are you primarily attending school in person or online?`, 
-         device_school = `About what percentage of your waking hours do you spend using an electronic device for something related to school? This can include attending classes, studying, homework, club meetings, etc.`, 
-         device_leisure = `About what percentage of your waking hours do you spend on an electronic device for leisure activities?`, 
-         social_media = `What type of social media do you use? Select all that apply.`, 
+  rename(school_level = `Are you a high school or undergraduate student?`,
+         school_format = `Are you primarily attending classes in person or online?`, 
+         device_school = `About what percent of waking hours do you spend using an electronic device for something related to school, such as attending classes, studying, homework, etc.?`, 
+         device_leisure = `About what percent of waking hours do you spend on an electronic device for leisure activities, such as social media, watching TV, chatting with friends, etc.?`, 
+         social_media = `What social media platforms do you use? Select all that apply.`, 
          region = `What region do you live in?`)
 
 # reorder variables
