@@ -60,7 +60,7 @@ h3 {
   color: white !important;
 }
 
-/*.topicsList .topic:hover { 
+/*.topicsList .topic:hover {
   background-color: #00b3b3;
   color: white;
 }
@@ -68,7 +68,7 @@ h3 {
 
 code {
   background-color: #ececec !important;
-  color: #424242 !important;
+  color: #808080 !important;
   font-family: Source Code Pro !important;
 }
 
