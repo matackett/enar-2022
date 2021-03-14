@@ -1,0 +1,18 @@
+---
+title: "Introduction to R"
+subtitle: "2021 ENAR Fostering Diversity in Biostatistics Workshop"
+author: "Mine Çetinkaya-Rundel and Maria Tackett
+---
+
+This workshop is designed for high school and undergraduate students who are new to R and it is presented as part of the "2021 ENAR Fostering Diversity in Biostatistics Workshop".
+
+`r emo::ji("spiral_calendar")` 14 March 2021 
+`r emo::ji("twelve_o_clock")` 12:30pm - 1:45pm ET
+`r emo::ji("here")` Zoom (see email for info)
+
+## Agenda
+
+- Welcome + data collection (click [here](https://forms.gle/LcBLz6RkkXBuwMD9A) for survey)
+- Activity 1: [TikTok lyrics](https://minecr.shinyapps.io/tiktok_lyrics/)
+- Activity 2: [All about you]()
+
