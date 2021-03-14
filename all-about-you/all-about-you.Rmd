@@ -112,7 +112,7 @@ responses
 
 ## School
 
-### School format
+### School level
 
 **How many students are high school students? College undergraduates?** To answer this question, we can use the `count` function to count the number of students at each level of `school_level`. 
 
@@ -191,8 +191,8 @@ Start by counting the number of students attending school in person and online b
 
 ```{r school-format-region, exercise = TRUE}
 responses %>%
-  ___(___) %>%
-  ___(___)
+  group_by(___) %>%
+  count(___)
 ```
 
 ::: {.your-turn}
@@ -201,7 +201,7 @@ Then, make a stacked bar chart of  `region`, filling in the color based on `scho
 
 ```{r region-school, exercise = T}
 ggplot(data = ___, aes(x = ___, fill = ___)) +
-  geom_bar(___) +
+  geom_bar(position = "fill") +
   labs(x = "___", 
        y = "___", 
        fill = "___",
@@ -229,7 +229,7 @@ ggplot(data = responses, aes(x = device_school, y = device_leisure)) +
 
 Now let's see if the relationship between `device_school` and `device_leisure` differs for students attending classes in person versus those attending classes online.
 
-We'll add color to our scatterplot to look at the difference by school format.
+We'll add color to our scatterplot to look at the difference by `school_format`.
 
 ```{r device-by-format, exercise = TRUE}
 ggplot(data = responses, aes(x = device_school, y = device_leisure, 
@@ -288,8 +288,8 @@ Make a scatterplot the relationship between percent of time using an electronic 
 ```{r device-by-region, exercise = TRUE}
 ggplot(data = responses, aes(x = ___, y = ___, 
                              color = ___)) +
-  ___() +
-  ___() +
+  geom_point() +
+  geom_smooth() +
   labs(x = "___", 
       y = "___", 
       color = "___"
@@ -362,7 +362,7 @@ Fill in the code below to make a new variable to indicate whether students use T
 
 ```{r tik-tok, exercise = TRUE, exercise.setup = "instagram-2"}
 responses <- responses %>%
-  ___(tiktok = ___(___, "___"))
+  ___(tiktok = ___(social_media, "___"))
 
 responses %>%
   select(social_media, tiktok)
@@ -374,7 +374,8 @@ Then, calculate the percent of students who use TikTok!
 
 ```{r tik-tok-data, include  = FALSE}
 responses <- responses %>%
-  mutate(tiktok = str_detect(social_media, "TikTok"))
+  mutate(tiktok = str_detect(social_media, "TikTok"), 
+         instagram = str_detect(social_media, "Instagram"))
 ```
 
 ```{r tik-tok-percent, exercise = TRUE, exercise.setup = "tik-tok-data"}
@@ -424,3 +425,6 @@ Below are a few resources to keep learning more about R and the tidyverse!
 - [R for Data Science](https://r4ds.had.co.nz/)
 - [RStudio Primers](https://rstudio.cloud/learn/primers)
 - [tidyverse.org](https://www.tidyverse.org/)
+
+
+
