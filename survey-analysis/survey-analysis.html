@@ -125,7 +125,9 @@ $(document).ready(function () {
 <div id="section-packages" class="section level3">
 <h3>Packages</h3>
 <p>We’ll use the <strong>tidyverse</strong>, a collection of R packages designed for data science.</p>
-<p>Run the code to load the <strong>tidyverse</strong>.</p>
+<div class="your-turn">
+<p>Click <em>Run Code</em> to load the tidyverse package.</p>
+</div>
 <div class="tutorial-exercise" data-label="load-packages" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>library(tidyverse)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -149,7 +151,9 @@ $(document).ready(function () {
 </div>
 <div id="section-lets-take-look-at-the-data" class="section level3">
 <h3>Let’s take look at the data</h3>
-<p>Run the code to view the data!</p>
+<div class="your-turn">
+<p>Click run <strong>Run Code</strong> to view the data!</p>
+</div>
 <div class="tutorial-exercise" data-label="view-data" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>responses</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -180,7 +184,9 @@ $(document).ready(function () {
 <li>To change the color of the bars, we’ll include the argument <code>fill = "[COLOR]"</code> inside <code>geom_bar()</code>. In the code below, you can see that we’ve changed the color of the bars to blue.</li>
 <li>We’ll add a title using <code>labs()</code>.</li>
 </ul>
+<div class="your-turn">
 <p>Update the code by replacing <code>blue</code> with a color of your choice and adding a title. You can <a href="https://www.r-graph-gallery.com/42-colors-names.html">click here</a> for a list of colors.</p>
+</div>
 <div class="tutorial-exercise" data-label="school-level-custom" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = responses, aes(x = school_level)) +
   geom_bar(fill = &quot;blue&quot;) + 
@@ -207,7 +213,9 @@ $(document).ready(function () {
 <li>Define <code>fill = [VAR]</code> as an argument in <code>aes()</code>.</li>
 <li>Include <code>position = "fill"</code> in <code>geom_bar()</code></li>
 </ul>
+<div class="your-turn">
 <p>Fill in the code to make a bar plot of <code>school_level</code> with the bars filled in based on <code>school_format</code>. Notice that we’ve also added labels for the axes and legend.</p>
+</div>
 <div class="tutorial-exercise" data-label="school-level-stacked" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = responses, aes(x = ___, fill = ___)) +
   geom_bar(position = &quot;___&quot;) +
@@ -222,14 +230,18 @@ $(document).ready(function () {
 <div id="section-your-turn" class="section level3">
 <h3>Your Turn!</h3>
 <p><strong>Is there a relationship between where students live and whether they are attending classes in person or online?</strong></p>
-Start by counting the number of students attending school in person and online by region.
+<div class="your-turn">
+<p>Start by counting the number of students attending school in person and online by region.</p>
+</div>
 <div class="tutorial-exercise" data-label="school-format-region" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>responses %&gt;%
   ___(___) %&gt;%
   ___(___)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
+<div class="your-turn">
 <p>Then, make a stacked bar chart of <code>region</code>, filling in the color based on <code>school_format</code>.</p>
+</div>
 <div class="tutorial-exercise" data-label="region-school" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = ___, aes(x = ___, fill = ___)) +
   geom_bar(___) +
@@ -309,7 +321,9 @@ Start by counting the number of students attending school in person and online b
 </div>
 <div id="section-your-turn-1" class="section level3">
 <h3>Your turn!</h3>
-<p>Make a scatterplot the relationship between percent of time using an electronic device for school (<code>device_school</code>) and for leisure activities (<code>device_leisure</code>) by <code>region</code>. and school format. Make a scatterplot using color and faceting to visualize the relationship between these variables.</p>
+<div class="your-turn">
+<p>Make a scatterplot the relationship between percent of time using an electronic device for school (<code>device_school</code>) and for leisure activities (<code>device_leisure</code>) by <code>region</code>.</p>
+</div>
 <div class="tutorial-exercise" data-label="device-by-region" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = responses, aes(x = ___, y = ___, 
                              color = ___)) +
@@ -321,7 +335,9 @@ Start by counting the number of students attending school in person and online b
       title = &quot;___&quot;)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
+<div class="your-turn">
 <p>Once you’ve made your scatterplot, try updating the code to facet by <code>school_format</code>!</p>
+</div>
 <p><strong>What are two observations from your plot?</strong></p>
 </div>
 </div>
@@ -372,7 +388,9 @@ Start by counting the number of students attending school in person and online b
 <div id="section-your-turn-tiktok-users" class="section level3">
 <h3>Your turn! TikTok users</h3>
 <p>What percent of students use TikTok? Make a new variable that indicates whether a student selected TikTok, then calculate the percent of students who are TikTok users.</p>
+<div class="your-turn">
 <p>Fill in the code below to make a new variable to indicate whether students use TikTok. Then, view the data with your new variable.</p>
+</div>
 <div class="tutorial-exercise" data-label="tik-tok" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>responses &lt;- responses %&gt;%
   ___(tiktok = ___(___, &quot;___&quot;))
@@ -381,7 +399,9 @@ responses %&gt;%
   select(social_media, tiktok)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<p>Now calculate the percent of students who use TikTok.</p>
+<div class="your-turn">
+<p>Then, calculate the percent of students who use TikTok!</p>
+</div>
 <div class="tutorial-exercise" data-label="tik-tok-percent" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>responses %&gt;%
   ___(___) %&gt;%
@@ -392,7 +412,9 @@ responses %&gt;%
 <div id="section-relationship-between-tiktok-and-instagram" class="section level3">
 <h3>Relationship between TikTok and Instagram</h3>
 <p>Are students who use Instagram more likely to use TikTok? Let’s use the functions we’ve learned today to find out!</p>
+<div class="your-turn">
 <p>Calculate the percent of TikTok users for each level of <code>instagram</code>.</p>
+</div>
 <div class="tutorial-exercise" data-label="tik-tok-instagram" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>responses %&gt;%</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -403,7 +425,9 @@ responses %&gt;%
   ___(___) %&gt;%
   ___(percent = ___ / sum(___) * 100)</code></pre>
 </div>
+<div class="your-turn">
 <p>Then, make a stacked bar plot to view the relationship between the two variables!</p>
+</div>
 <div class="tutorial-exercise" data-label="tik-tok-instagram-2" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
