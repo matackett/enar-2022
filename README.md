@@ -2,11 +2,10 @@ Introduction to R
 ================
 
 This workshop is designed for high school and undergraduate students who
-are new to R and it is presented as part of the “2021 ENAR Fostering
+are new to R and it is presented as part of the “2022 ENAR Fostering
 Diversity in Biostatistics Workshop”.
 
-🗓 14 March 2021  
-🕛 12:30pm - 1:45pm ET  
+🗓 March 27, 2022 🕛 3pm - 4:30pm ET  
 📌 Zoom (see email for info)
 
 <br>
@@ -23,17 +22,6 @@ Diversity in Biostatistics Workshop”.
 
 ## Instructors
 
-#### [Dr. Mine Çetinkaya-Rundel](http://mine-cr.com/)
-
-I am Senior Lecturer in Statistics and Data Science in the School of
-Maths at the University of Edinburgh, Associate Professor of the
-Practice in the Department of Statistical Science at Duke University,
-and Professional Educator and Data Scientist at RStudio. I received my
-Ph.D. in Statistics from the University of California, Los Angeles. My
-work focuses on innovation in statistics and data science pedagogy, with
-an emphasis on computing, reproducible research, student-centered
-learning, and open-source education.
-
 #### [Dr. Maria Tackett](https://www.mariatackett.net/)
 
 I am an Assistant Professor of the Practice in the Department of
@@ -44,3 +32,7 @@ joining the faculty at Duke, I earned a Ph.D. in Statistics from the
 University of Virginia, where my research focused on using a Bayesian
 approach to quantify uncertainty in forensic science techniques, with an
 emphasis on latent fingerprint evidence.
+
+#### [Dr. Allison Theobold]()
+
+\[Add bio + link to website\]
