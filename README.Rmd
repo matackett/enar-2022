@@ -6,8 +6,8 @@ output: "github_document"
 
 This workshop is designed for high school and undergraduate students who are new to R and it is presented as part of the "2022 ENAR Fostering Diversity in Biostatistics Workshop".
 
-`r emo::ji("spiral_calendar")` March 27, 2022
-`r emo::ji("twelve_o_clock")` 3pm - 4:30pm ET  
+`r emo::ji("spiral_calendar")` March 27, 2022  
+`r emo::ji("three_o_clock")` 3pm - 4:30pm ET  
 `r emo::ji("pushpin")` Zoom (see email for info)  
 
 <br>

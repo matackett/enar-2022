@@ -5,7 +5,8 @@ This workshop is designed for high school and undergraduate students who
 are new to R and it is presented as part of the “2022 ENAR Fostering
 Diversity in Biostatistics Workshop”.
 
-🗓 March 27, 2022 🕛 3pm - 4:30pm ET  
+🗓 March 27, 2022  
+🕒 3pm - 4:30pm ET  
 📌 Zoom (see email for info)
 
 <br>
