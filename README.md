@@ -34,6 +34,17 @@ University of Virginia, where my research focused on using a Bayesian
 approach to quantify uncertainty in forensic science techniques, with an
 emphasis on latent fingerprint evidence.
 
-#### [Dr. Allison Theobold]()
+#### [Dr. Allison Theobold](https://statistics.calpoly.edu/allison-theobold)
 
-\[Add bio + link to website\]
+I am an Assistant Professor of Statistics at Cal Poly in beautiful San Luis
+Obispo, California. I received my doctorate in Statistics, with an emphasis
+in Statistics Education, from Montana State University.My work focuses on
+innovation in statistics and data science education, with an emphasis on
+equitable pedagogy and learning trajectories. I am also interested in
+exploring pedagogical approaches which build student authority in the
+classroom and enhance the retention of under-represented students in STEM.
+Being a part of the statistics education community is very important to me. 
+I am a committee member of the ASA’s Section on Statistics and Data Science
+Education Mentoring Program, and co-organizer of Preparing to Teach
+(https://preparingtoteach.org/), a day-long workshop preparing early career
+faculty to teach courses in statistics and data science. 
