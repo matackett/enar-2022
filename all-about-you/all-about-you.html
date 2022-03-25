@@ -292,15 +292,15 @@ data-startover="1" data-lines="0">
   geom_smooth() +
   labs(x = &quot;___&quot;, 
       y = &quot;___&quot;, 
-      color = &quot;___&quot;
+      color = &quot;___&quot;,
       title = &quot;___&quot;)</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.timelimit":30,"exercise.checker":"NULL"}</script>
 </div>
 <p><strong>What do you observe from your plot?</strong></p>
 </div>
 </div>
-<div id="section-mapping-states" class="section level2">
-<h2>Mapping states</h2>
+<div id="section-states" class="section level2">
+<h2>States</h2>
 <p><strong>Let’s take a look at which states are represented
 today!</strong></p>
 <p>We’ll start by counting the number of students who live in each
@@ -354,7 +354,8 @@ data-startover="1" data-lines="0">
 class="section level3">
 <h3>Color states by number of students</h3>
 <p>Instead of using the same color for all states, let’s color in the
-the states based on the number of students who live in that state.</p>
+the states based on <code>n</code>, the number of students who live in
+that state.</p>
 <p>To do so we will <code>join</code> the count of the number of
 students from each state to <code>usa_map_data</code>. Use
 <code>&lt;-</code> to save the results in a new data frame (a <em>data
@@ -372,14 +373,17 @@ usa_map_data &lt;- usa_map_data %&gt;%
 <div class="tutorial-exercise-support" data-label="joined-map-data"
 data-caption="Code" data-completion="1" data-diagnostics="1"
 data-startover="1" data-lines="0">
-<pre class="text"><code>num_students &lt;- responses %&gt;%
+<pre class="text"><code>usa_map_data &lt;- urbnmapr::states %&gt;%
+  rename(state = state_name)
+
+num_students &lt;- responses %&gt;%
   count(state)
 
 usa_map_data &lt;- usa_map_data %&gt;%
   left_join(num_students, by = c(&quot;state&quot;))</code></pre>
 </div>
-<p>Now fill in the color of the states based on the number of students
-who live in that state. Add a title to the map.</p>
+<p>Now fill in the color of the states based on <code>n</code>, the
+number of students who live in that state. Add a title to the map.</p>
 <div class="tutorial-exercise" data-label="map-by-num"
 data-caption="Code" data-completion="1" data-diagnostics="1"
 data-startover="1" data-lines="0">
@@ -433,13 +437,19 @@ data-startover="1" data-lines="0">
   mutate(instagram  = str_detect(social_media, &quot;Instagram&quot;))</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.timelimit":30,"exercise.checker":"NULL"}</script>
 </div>
+<div class="tutorial-exercise-support" data-label="instagram-var"
+data-caption="Code" data-completion="1" data-diagnostics="1"
+data-startover="1" data-lines="0">
+<pre class="text"><code>responses &lt;- responses %&gt;%
+  mutate(instagram  = str_detect(social_media, &quot;Instagram&quot;))</code></pre>
+</div>
 <p>Now let’s take a look at our new variable!</p>
 <div class="tutorial-exercise" data-label="instagram-view"
 data-caption="Code" data-completion="1" data-diagnostics="1"
 data-startover="1" data-lines="0">
 <pre class="text"><code>responses %&gt;%
   select(social_media, instagram)</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.timelimit":30,"exercise.setup":"instagram-2","exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.timelimit":30,"exercise.setup":"instagram-var","exercise.checker":"NULL"}</script>
 </div>
 <p>Make a barplot to visualize the number of students who do and do not
 use Instagram.</p>
@@ -448,7 +458,7 @@ data-caption="Code" data-completion="1" data-diagnostics="1"
 data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = responses, aes(x = instagram)) +
   geom_bar() </code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.timelimit":30,"exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.timelimit":30,"exercise.setup":"instagram-var","exercise.checker":"NULL"}</script>
 </div>
 </div>
 <div id="section-calculate-percent-instagram" class="section level3">
@@ -463,7 +473,7 @@ data-startover="1" data-lines="0">
 <pre class="text"><code>responses %&gt;%
   count(___) %&gt;%
   mutate(percent = n / sum(n) * 100)</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.timelimit":30,"exercise.setup":"instagram-2","exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.timelimit":30,"exercise.setup":"instagram-var","exercise.checker":"NULL"}</script>
 </div>
 </div>
 <div id="section-your-turn-tiktok-users" class="section level3">
@@ -483,7 +493,7 @@ data-lines="0">
 
 responses %&gt;%
   select(social_media, tiktok)</code></pre>
-<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.timelimit":30,"exercise.setup":"instagram-2","exercise.checker":"NULL"}</script>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.timelimit":30,"exercise.setup":"instagram-var","exercise.checker":"NULL"}</script>
 </div>
 <div class="your-turn">
 <p>Calculate the percent of students who use TikTok!</p>
@@ -628,6 +638,10 @@ responses <- responses %>%
          device_school = `About what percent of waking hours do you spend using an electronic device for something related to school, such as attending classes, studying, homework, etc.? Enter the value as a number 0 - 100%.`, 
          device_leisure = `About what percent of waking hours do you spend on an electronic device for leisure activities, such as social media, watching TV, chatting with friends, etc.? Enter the value as a number 0 - 100%.`, 
          social_media = `What social media platforms do you use? Select all that apply.`)
+
+# remove test responses 
+responses <- responses %>%
+  slice(-c(1,2,3))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">

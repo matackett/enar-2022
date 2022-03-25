@@ -65,6 +65,10 @@ responses <- responses %>%
          device_school = `About what percent of waking hours do you spend using an electronic device for something related to school, such as attending classes, studying, homework, etc.? Enter the value as a number 0 - 100%.`, 
          device_leisure = `About what percent of waking hours do you spend on an electronic device for leisure activities, such as social media, watching TV, chatting with friends, etc.? Enter the value as a number 0 - 100%.`, 
          social_media = `What social media platforms do you use? Select all that apply.`)
+
+# remove test responses 
+responses <- responses %>%
+  slice(-c(1,2,3))
 ```
 
 ## Introduction 
@@ -199,13 +203,13 @@ ggplot(data = responses, aes(x = ___, y = ___, color = ___)) +
   geom_smooth() +
   labs(x = "___", 
       y = "___", 
-      color = "___"
+      color = "___",
       title = "___")
 ```
 
 **What do you observe from your plot?** 
 
-## Mapping states
+## States
 
 **Let's take a look at which states are represented today!** 
 
@@ -248,7 +252,7 @@ ggplot(data = usa_map_data, aes(x = long, y = lat, group = group)) +
 
 ### Color states by number of students
 
-Instead of using the same color for all states, let's color in the the states based on the number of students who live in that state. 
+Instead of using the same color for all states, let's color in the the states based on `n`, the number of students who live in that state.
 
 To do so we will `join` the count of the number of students from each state to `usa_map_data`. Use `<-` to save the results in a new data frame (a *data frame* is the name for a data set in R).
 
@@ -261,6 +265,9 @@ usa_map_data <- usa_map_data %>%
 ```
 
 ```{r joined-map-data, include = F}
+usa_map_data <- urbnmapr::states %>%
+  rename(state = state_name)
+
 num_students <- responses %>%
   count(state)
 
@@ -268,7 +275,7 @@ usa_map_data <- usa_map_data %>%
   left_join(num_students, by = c("state"))
 ```
 
-Now fill in the color of the states based on the number of students who live in that state. Add a title to the map. 
+Now fill in the color of the states based on `n`, the number of students who live in that state. Add a title to the map. 
 
 ```{r map-by-num, exercise = TRUE, exercise.setup = "joined-map-data"}
 ggplot(data = usa_map_data, aes(x = long, y = lat, group = group, fill = ___)) + 
@@ -311,16 +318,21 @@ responses <- responses %>%
   mutate(instagram  = str_detect(social_media, "Instagram"))
 ```
 
+```{r instagram-var, include = F}
+responses <- responses %>%
+  mutate(instagram  = str_detect(social_media, "Instagram"))
+```
+
 Now let's take a look at our new variable! 
 
-```{r instagram-view, exercise = TRUE, exercise.setup = "instagram-2"}
+```{r instagram-view, exercise = TRUE, exercise.setup = "instagram-var"}
 responses %>%
   select(social_media, instagram)
 ```
 
 Make a barplot to visualize the number of students who do and do not use Instagram. 
 
-```{r instagram-bar, exercise  = TRUE}
+```{r instagram-bar, exercise  = TRUE, exercise.setup = "instagram-var"}
 ggplot(data = responses, aes(x = instagram)) +
   geom_bar() 
 ```
@@ -331,7 +343,7 @@ ggplot(data = responses, aes(x = instagram)) +
 
 We want to calculate the percent of students who use Instagram. We'll start by counting the number of students in each category of `instagram` then create a new variable of the corresponding percents. 
 
-```{r instagram-percent, exercise = TRUE, exercise.setup = "instagram-2"}
+```{r instagram-percent, exercise = TRUE, exercise.setup = "instagram-var"}
 responses %>%
   count(___) %>%
   mutate(percent = n / sum(n) * 100)
@@ -346,7 +358,7 @@ What percent of students use TikTok? Make a new variable that indicates whether 
 Create a variable to indicate whether students use TikTok, then view the data with your new variable. 
 ::: 
 
-```{r tik-tok, exercise = TRUE, exercise.setup = "instagram-2"}
+```{r tik-tok, exercise = TRUE, exercise.setup = "instagram-var"}
 responses <- responses %>%
   ___(tiktok = ___(social_media, "___"))
 
