@@ -20,6 +20,8 @@ library(tidyverse)
 library(googlesheets4)
 library(viridis)
 library(waffle)
+library(urbnmapr)
+
 
 # remove authorization from googlesheet
 gs4_deauth()
@@ -52,21 +54,17 @@ scale_colour_discrete <- function(...) {
 
 
 # read in survey responses
-responses <- read_sheet("https://docs.google.com/spreadsheets/d/12TImpxFxdObvzjCVgQK6paPp0AxgN-1lSGg7CKfvCUM/edit?usp=sharing")
+responses <- read_sheet("https://docs.google.com/spreadsheets/d/1zjoOj4UoXwzuuuJRQCkTd8eeRIjAMWXSmomR8e2QT8c/edit?usp=sharing")
 
 # prep data 
 responses <- responses %>%
   select(-Timestamp) %>%
-  rename(school_level = `Are you a high school or undergraduate student?`,
-         school_format = `Are you primarily attending classes in person or online?`, 
-         device_school = `About what percent of waking hours do you spend using an electronic device for something related to school, such as attending classes, studying, homework, etc.?`, 
-         device_leisure = `About what percent of waking hours do you spend on an electronic device for leisure activities, such as social media, watching TV, chatting with friends, etc.?`, 
-         social_media = `What social media platforms do you use? Select all that apply.`, 
-         region = `What region do you live in?`)
-
-# reorder variables
-responses <- responses %>%
-  select(region, everything())
+  rename(state = `What state do you currently live in?`,
+         school_level = `Are you a high school or undergraduate student?`,
+         num_classes = `How many classes are you currently taking?`,
+         device_school = `About what percent of waking hours do you spend using an electronic device for something related to school, such as attending classes, studying, homework, etc.? Enter the value as a number 0 - 100%.`, 
+         device_leisure = `About what percent of waking hours do you spend on an electronic device for leisure activities, such as social media, watching TV, chatting with friends, etc.? Enter the value as a number 0 - 100%.`, 
+         social_media = `What social media platforms do you use? Select all that apply.`)
 ```
 
 ## Introduction 
@@ -89,16 +87,16 @@ library(tidyverse)
 
 ### Your survey responses 
 
-The data frame `responses` contains your responses to the [survey](https://forms.gle/Txz92ytAmngd5TZy6) you took during this workshop. 
+The data frame `responses` contains your responses to the [survey](https://forms.gle/2VhEZPqEjeN4ykY87) you took during this workshop. 
 
 Here is the codebook for `responses`:
 
-- `region`: Northeast, South, Midwest, West
-- `school_level`: High School or Undergraduate
-- `school_format`: How you're primarily attending classes (In person or Online)
+- `state`: state you live in
+- `school_level`: high school or undergraduate student
+- `num_classes`: number of classes you're currently taking
 - `device_school`: percent of waking hours spent using electronic devices for school 
 - `device_leisure`: percent of waking hours spent using electronic devices for leisure activities
-- `social_media`: Social media platforms you typically use (Facebook, Twitter, Instagram, Snapchat, TikTok, Other, None/ I don't use social media)
+- `social_media`: social media platforms you typically use (Facebook, Twitter, Instagram, Snapchat, TikTok, Other, None/ I don't use social media)
 
 ### Let's take look at the data
 
@@ -136,79 +134,15 @@ There are many ways to customize plots made with `ggplot`. For now, let's change
 - We'll add a title using `labs()`. 
 
 ::: {.your-turn}
-Update the code by replacing `blue` with a color of your choice and adding a title. You can [click here](https://www.r-graph-gallery.com/42-colors-names.html) for a list of colors. 
+Update the code by filling in a color of your choice and adding a title. You can [click here](https://www.r-graph-gallery.com/42-colors-names.html) for a list of colors. 
 ::: 
 
 ```{r school-level-custom, exercise = TRUE}
 ggplot(data = responses, aes(x = school_level)) +
-  geom_bar(fill = "blue") + 
+  geom_bar(fill = "___") + 
   labs(title = "___")
 ```
 
-### School format by level
-
-**Are high school or undergraduates students more likely to be attending classes online?**
-
-We can use the `group_by()` function to count number of students attending classes in person or online for each school level. 
-
-```{r level-format-count, exercise = TRUE}
-responses %>% 
-  group_by(___) %>%
-  count(___)
-```
-
-### Visualize school format by level
-
-Let's visualize the relationship between school level and school format. We can update the original bar plot of `school_level` by filling in the color of the bars based on `school_format`. This is a **stacked barplot**.  
-
-Since we want to fill in the color of the bars based on a variable (instead of making them the same color as before), we will 
-
-- Define `fill = [VAR]` as an argument in `aes()`. 
-- Include `position = "fill"` in `geom_bar()`
-
-::: {.your-turn}
-Fill in the code to make a bar plot of `school_level` with the bars filled in based on `school_format`. Notice that we've also added labels for the axes and legend.
-:::
-
-```{r school-level-stacked, exercise = TRUE}
-ggplot(data = responses, aes(x = ___, fill = ___)) +
-  geom_bar(position = "___") +
-  labs(x = "___", 
-       y = "Proportion", 
-       fill = "School format",
-       title = "___")
-```
-
-**What do you observe about the relationship between school format and school level? Are high school or undergraduates students more likely to be attending classes online?**
-
-### Your Turn! 
-
-**Is there a relationship between where students live and whether they are attending classes in person or online?**
-
-::: {.your-turn}
-Start by counting the number of students attending school in person and online by region. 
-:::
-
-```{r school-format-region, exercise = TRUE}
-responses %>%
-  group_by(___) %>%
-  count(___)
-```
-
-::: {.your-turn}
-Then, make a stacked bar chart of  `region`, filling in the color based on `school_format`. 
-:::
-
-```{r region-school, exercise = T}
-ggplot(data = ___, aes(x = ___, fill = ___)) +
-  geom_bar(position = "fill") +
-  labs(x = "___", 
-       y = "___", 
-       fill = "___",
-       title = "___")
-```
-
-**What are some regional similarities and differences you observe about the way students are attending school?**
 
 ## Electronic devices
 
@@ -225,69 +159,42 @@ ggplot(data = responses, aes(x = device_school, y = device_leisure)) +
   geom_point()
 ```
 
-### Electronic device use by school format
-
-Now let's see if the relationship between `device_school` and `device_leisure` differs for students attending classes in person versus those attending classes online.
-
-We'll add color to our scatterplot to look at the difference by `school_format`.
-
-```{r device-by-format, exercise = TRUE}
-ggplot(data = responses, aes(x = device_school, y = device_leisure, 
-                             color = ___)) +
-  geom_point()
-```
 
 ### Visualize general trend
 
 We can also use `geom_smooth()` to get a better view of the general relationship between the variables.  
 
 ```{r device-by-format-smooth, exercise = TRUE}
-ggplot(data = responses, aes(x = device_school, y = device_leisure, 
-                             color = school_format)) +
+ggplot(data = responses, aes(x = device_school, y = device_leisure)) + 
   geom_point() +
   geom_smooth()
-```
-
-**What do you observe about the relationship between `device_school` and `device_leisure` for students attending classes in person compared to students attending class online?**
-
-### Let's add school level
-
-Do the observations we've made about electronic device use differ for high school and undergraduate students?
-
-Let's use `facet_wrap` to look at separate scatterplots based on school level.
-
-```{r device-by-format-facet, exercise = TRUE}
-ggplot(data = responses, aes(x = device_school, y = device_leisure, 
-                             color = school_format)) +
-  geom_point() +
-  geom_smooth() +
-  facet_wrap(vars(___))
 ```
 
 ### Add labels and a title!
 
 ```{r device-by-format-facet-2, exercise = TRUE}
-ggplot(data = responses, aes(x = device_school, y = device_leisure, 
-                             color = school_format)) +
+ggplot(data = responses, aes(x = device_school, y = device_leisure)) +
   geom_point() +
   geom_smooth() +
-  facet_wrap(vars(school_level)) + 
-  labs(x = "% time using device for school", 
-      y = "% time using device for leisure", 
-      color = "School format",
-      title = "Electronic device use by class format", 
-      subtitle = "For high school and undergraduate students")
+  labs(x = "___", 
+      y = "___", 
+      title = "Electronic device use for school and leisure")
 ```
+
+
+**What do you observe about the relationship between `device_school` and `device_leisure`?**
+
 
 ### Your turn!
 
+Now let's see if the relationship between `device_school` and `device_leisure` differs for high school and undergraduate students. 
+
 ::: {.your-turn}
-Make a scatterplot the relationship between percent of time using an electronic device for school (`device_school`) and for leisure activities (`device_leisure`) by `region`.
+Make a scatterplot the relationship between percent of time using an electronic device for school (`device_school`) and for leisure activities (`device_leisure`) coloring the  points by `school_level`.
 :::
 
 ```{r device-by-region, exercise = TRUE}
-ggplot(data = responses, aes(x = ___, y = ___, 
-                             color = ___)) +
+ggplot(data = responses, aes(x = ___, y = ___, color = ___)) +
   geom_point() +
   geom_smooth() +
   labs(x = "___", 
@@ -296,19 +203,90 @@ ggplot(data = responses, aes(x = ___, y = ___,
       title = "___")
 ```
 
+**What do you observe from your plot?** 
+
+## Mapping states
+
+**Let's take a look at which states are represented today!** 
+
+We'll start by counting the number of students who live in each state. We'll use the `arrange()` function so we can see the states with the most students at the top of the list. 
+
+```{r state-count, exercise = TRUE}
+responses %>%
+  ___(___) %>%
+  arrange(desc(n))
+```
+
+
+### Map of the United States
+
+We can use R to plot the number of students from each state onto a map. We'll start by looking at a map of the United States. The data set `usa_map_data` contains the coordinates needed to create a map of the US, and the function `geom_polygon()`  uses the coordinates to produce a map. 
+
+
+```{r map-data, include = F}
+usa_map_data <- urbnmapr::states %>%
+  rename(state = state_name)
+```
+
+
+```{r map, exercise = TRUE, exercise.setup = "map-data"}
+ggplot(data = usa_map_data, aes(x = long, y = lat, group = group)) + 
+  geom_polygon()
+```
+
+### Customize the map
+
 ::: {.your-turn}
-Once you've made your scatterplot, try updating the code to facet by `school_format`! 
+Fill in the blanks with colors of your choice to customize your map. Notice how the map changes for different values of `fill` versus different values of `color`. 
 :::
 
-**What are two observations from your plot?** 
+```{r map-customize, exercise = TRUE, exercise.setup = "map-data"}
+ggplot(data = usa_map_data, aes(x = long, y = lat, group = group)) + 
+  geom_polygon(fill = "___", color = "___")
+```
 
-## Social Media
+
+### Color states by number of students
+
+Instead of using the same color for all states, let's color in the the states based on the number of students who live in that state. 
+
+To do so we will `join` the count of the number of students from each state to `usa_map_data`. Use `<-` to save the results in a new data frame (a *data frame* is the name for a data set in R).
+
+```{r join-data, exercise = TRUE, exercise.setup = "map-data"}
+num_students <- responses %>%
+  count(state)
+
+usa_map_data <- usa_map_data %>%
+  left_join(num_students, by = c("state"))
+```
+
+```{r joined-map-data, include = F}
+num_students <- responses %>%
+  count(state)
+
+usa_map_data <- usa_map_data %>%
+  left_join(num_students, by = c("state"))
+```
+
+Now fill in the color of the states based on the number of students who live in that state. Add a title to the map. 
+
+```{r map-by-num, exercise = TRUE, exercise.setup = "joined-map-data"}
+ggplot(data = usa_map_data, aes(x = long, y = lat, group = group, fill = ___)) + 
+  geom_polygon(color = "white") + 
+  labs(title = "____")
+```
+
+**What do you observe from the plot?**
+
+## Social media
 
 ### View `social_media`
 
-Now let's analyze the social media data. Our ultimate goal is to answer the following question: **Are students who use Instagram more likely to use TikTok than students who don't use Instagram?**
+Now let's analyze the social media data. Our ultimate goal is to answer the following question: 
 
-Let's start by using the `select` function to take a look at this variable.
+**Are students who use Instagram more likely to use TikTok than students who don't use Instagram?**
+
+Let's start by using the `select` function to take a look at the social media variable.
 
 ```{r instagram-1, exercise = TRUE}
 responses %>%
@@ -325,14 +303,12 @@ Let's start by looking at Instagram. We'll use the `str_detect` and `mutate` fun
 - `str_detect`: Returns the value **TRUE** if "Instagram" is included in a response and  **FALSE** otherwise.
 - `mutate`: Add the new variable to the data frame
 
-We use the `<-` to save the updated data frame, so we can use the new variable for analysis.
 
 Run the code below to make the new variable `instagram`.
 
 ```{r instagram-2, exercise = TRUE}
 responses <- responses %>%
   mutate(instagram  = str_detect(social_media, "Instagram"))
-
 ```
 
 Now let's take a look at our new variable! 
@@ -341,6 +317,15 @@ Now let's take a look at our new variable!
 responses %>%
   select(social_media, instagram)
 ```
+
+Make a barplot to visualize the number of students who do and do not use Instagram. 
+
+```{r instagram-bar, exercise  = TRUE}
+ggplot(data = responses, aes(x = instagram)) +
+  geom_bar() 
+```
+
+
 
 ### Calculate percent Instagram 
 
@@ -352,12 +337,13 @@ responses %>%
   mutate(percent = n / sum(n) * 100)
 ```
 
+
 ### Your turn! TikTok users
 
 What percent of students use TikTok? Make a new variable that indicates whether a student selected TikTok, then calculate the percent of students who are TikTok users.
 
 ::: {.your-turn}
-Fill in the code below to make a new variable to indicate whether students use TikTok. Then, view the data with your new variable. 
+Create a variable to indicate whether students use TikTok, then view the data with your new variable. 
 ::: 
 
 ```{r tik-tok, exercise = TRUE, exercise.setup = "instagram-2"}
@@ -369,7 +355,7 @@ responses %>%
 ```
 
 ::: {.your-turn}
-Then, calculate the percent of students who use TikTok! 
+Calculate the percent of students who use TikTok! 
 ::: 
 
 ```{r tik-tok-data, include  = FALSE}
@@ -384,9 +370,9 @@ responses %>%
   mutate(percent = n / sum(___) * 100)
 ```
 
-### Relationship between TikTok and Instagram
+### Relationship between using TikTok and Instagram
 
-Are students who use Instagram more likely to use TikTok? Let's use the functions we've learned today to find out! 
+**Are students who use Instagram more likely to use TikTok?** 
 
 ::: {.your-turn}
 Calculate the percent of TikTok users for each level of `instagram`.
@@ -404,19 +390,37 @@ responses %>%
   ___(percent = ___ / sum(___) * 100)
 ```
 
+
+Let's visualize the relationship between Instagram and TikTok use. We can update the original bar plot of `instgram` by filling in the color of the bars based on `tiktok`. This is a **stacked barplot**.  
+
+Since we want to fill in the color of the bars based on a variable (instead of making them the same color as before), we will 
+
+- Define `fill = [VAR]` as an argument in `aes()`. 
+- Include `position = "fill"` in `geom_bar()`
+
+
 ::: {.your-turn}
-Then, make a stacked bar plot to view the relationship between the two variables! 
+Make a stacked bar plot to view the relationship between the two variables! 
 :::
 
 ```{r tik-tok-instagram-2, exercise = TRUE, exercise.setup = "tik-tok-data" }
-
-```
-
-
-```{r tik-tok-instagram-2-hint}
 ggplot(data = responses, aes(x = ___, fill = ___)) +
   geom_bar(position = "___") 
 ```
+
+
+**What is the relationship between using Instagram and TikTok? Are students who use Instagram more likely to use TikTok?**
+
+## Explore!
+
+**Use the space below to explore the data, calculate new statistics, and create new visualizations.**
+
+
+```{r explore, exercise = TRUE, exercise.setup = "tik-tok-data" }
+
+```
+
+
 
 ## Learn more!
 
