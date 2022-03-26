@@ -14,12 +14,12 @@ p.caption {
 
 h2 {
   font-family: Secular One !important;
-  color: #414d6b !important;
+  color: #69A197 !important;
 }
 
 h3 {
   font-family: Secular One !important;
-  color: #414d6b !important;
+  color: #69A197 !important;
 }
 
 
@@ -55,12 +55,12 @@ h3 {
 
 .topicsList .topic.current {
   border-color: white !important;
-  background-color: #414d6b !important;
+  background-color: #69A197 !important;
   color: white !important;
 }
 
 a {
-  color: #414d6b !important;
+  color: #69A197 !important;
 }
 
 code {

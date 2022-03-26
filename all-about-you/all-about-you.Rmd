@@ -130,7 +130,7 @@ ggplot(data = responses, aes(x = school_level)) +
 
 ### Customize the bar plot
 
-There are many ways to customize plots made with `ggplot`. For now, let's change the color of the bars and add a title. 
+There are many ways to customize plots made with `ggplot()`. For now, let's change the color of the bars and add a title. 
 
 - To change the color of the bars, we'll include the argument `fill = "[COLOR]"` inside `geom_bar()`. In the code below, you can see that we've changed the color of the bars to blue. 
 - We'll add a title using `labs()`. 
@@ -154,7 +154,7 @@ ggplot(data = responses, aes(x = school_level)) +
 
 ### Electronic device use
 
-We can use `geom_point()` to make scatterplots with `ggplot`. 
+We can use `geom_point()` to make scatterplots with `ggplot()`. 
 
 ```{r time-on-device, exercise = TRUE}
 ggplot(data = responses, aes(x = device_school, y = device_leisure)) +
