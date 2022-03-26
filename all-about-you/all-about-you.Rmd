@@ -16,10 +16,8 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
-library(tidyverse)
 library(googlesheets4)
 library(viridis)
-library(waffle)
 library(urbnmapr)
 
 
@@ -68,7 +66,7 @@ responses <- responses %>%
 
 # remove test responses 
 responses <- responses %>%
-  slice(-c(1,2,3))
+slice(-c(1,2,3))
 ```
 
 ## Introduction 
@@ -403,7 +401,7 @@ responses %>%
 ```
 
 
-Let's visualize the relationship between Instagram and TikTok use. We can update the original bar plot of `instgram` by filling in the color of the bars based on `tiktok`. This is a **stacked barplot**.  
+Let's visualize the relationship between Instagram and TikTok use. We can update the original bar plot of `instagram` by filling in the color of the bars based on `tiktok`. This is a **stacked barplot**.  
 
 Since we want to fill in the color of the bars based on a variable (instead of making them the same color as before), we will 
 
