@@ -13,7 +13,7 @@ Diversity in Biostatistics Workshop”.
 
 ## Agenda
 
--   ### Welcome + data collection (click [here](https://forms.gle/LcBLz6RkkXBuwMD9A) for survey)
+-   ### Welcome + data collection (click [here](https://forms.gle/tJHjPdDM5EusB3Fm6) for survey)
 
 -   ### Activity 1: [TikTok lyrics](https://minecr.shinyapps.io/tiktok_lyrics/)
 
@@ -36,15 +36,16 @@ emphasis on latent fingerprint evidence.
 
 #### [Dr. Allison Theobold](https://statistics.calpoly.edu/allison-theobold)
 
-I am an Assistant Professor of Statistics at Cal Poly in beautiful San Luis
-Obispo, California. I received my doctorate in Statistics, with an emphasis
-in Statistics Education, from Montana State University.My work focuses on
-innovation in statistics and data science education, with an emphasis on
-equitable pedagogy and learning trajectories. I am also interested in
-exploring pedagogical approaches which build student authority in the
-classroom and enhance the retention of under-represented students in STEM.
-Being a part of the statistics education community is very important to me. 
-I am a committee member of the ASA’s Section on Statistics and Data Science
-Education Mentoring Program, and co-organizer of Preparing to Teach
-(https://preparingtoteach.org/), a day-long workshop preparing early career
-faculty to teach courses in statistics and data science. 
+I am an Assistant Professor of Statistics at Cal Poly in beautiful San
+Luis Obispo, California. I received my doctorate in Statistics, with an
+emphasis in Statistics Education, from Montana State University.My work
+focuses on innovation in statistics and data science education, with an
+emphasis on equitable pedagogy and learning trajectories. I am also
+interested in exploring pedagogical approaches which build student
+authority in the classroom and enhance the retention of
+under-represented students in STEM. Being a part of the statistics
+education community is very important to me. I am a committee member of
+the ASA’s Section on Statistics and Data Science Education Mentoring
+Program, and co-organizer of Preparing to Teach
+(<https://preparingtoteach.org/>), a day-long workshop preparing early
+career faculty to teach courses in statistics and data science.
