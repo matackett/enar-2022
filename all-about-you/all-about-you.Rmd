@@ -18,7 +18,7 @@ library(learnr)
 library(tidyverse)
 library(googlesheets4)
 library(viridis)
-library(urbnmapr)
+library(urbnmapr) # # devtools::install_github("UrbanInstitute/urbnmapr")
 
 
 # remove authorization from googlesheet

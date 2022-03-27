@@ -4,7 +4,7 @@ library(rsconnect)
 
 # deploy tutorials -------------------------------------------------------------
 
-deployApp(
+rsconnect::deployApp(
   appDir = "tiktok-lyrics",
   appTitle = "TikTok lyrics",
   account = "minecr",
@@ -12,7 +12,7 @@ deployApp(
   launch.browser = TRUE
 )
 
-deployApp(
+rsconnect::deployApp(
   appDir = "all-about-you",
   appTitle = "All about you!",
   account = "minecr",
