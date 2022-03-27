@@ -14,7 +14,7 @@ This workshop is designed for high school and undergraduate students who are new
 
 ## Agenda
 
-- ### Welcome + data collection (click [here](https://forms.gle/tJHjPdDM5EusB3Fm6) for survey)
+- ### Welcome + data collection (click [here](https://forms.gle/zHv5J5R9fmcduESeA) for survey)
 - ### Activity 1: [TikTok lyrics](https://minecr.shinyapps.io/tiktok_lyrics/)
 - ### Activity 2: [All about you!](https://minecr.shinyapps.io/all_about_you/)
 

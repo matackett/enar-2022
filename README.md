@@ -13,7 +13,7 @@ Diversity in Biostatistics Workshop”.
 
 ## Agenda
 
--   ### Welcome + data collection (click [here](https://forms.gle/tJHjPdDM5EusB3Fm6) for survey)
+-   ### Welcome + data collection (click [here](https://forms.gle/zHv5J5R9fmcduESeA) for survey)
 
 -   ### Activity 1: [TikTok lyrics](https://minecr.shinyapps.io/tiktok_lyrics/)
 
